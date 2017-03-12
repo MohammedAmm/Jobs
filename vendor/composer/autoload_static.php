@@ -272,6 +272,7 @@ class ComposerStaticInit90ef9ab146f34517ee7554a38c81b0a7
     );
 
     public static $classMap = array (
+        'AddApiTokenToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_203006_add_api_token_to_users.php',
         'AddJobAddressToWorker' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_142506_add_job_address_to_worker.php',
         'AddRoleIdToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_03_02_233737_add_role_id_to_users.php',
         'CreateAddressesTable' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_140611_create_addresses_table.php',
