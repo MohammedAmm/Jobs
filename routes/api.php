@@ -13,16 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function () {
     return $request->user();
 
-
-    Route::Post('user_reg',ApiController@user_reg);
-
-
-
-
-
-
-
 });
+
+    	Route::post('user_reg','ApiController@user_reg');
+
+		
+		Route::get('yes',function (){
+
+
+			return json_encode(['data'=>[1=>'one',2=>'two',3=>'three']]);
+		});
+    
