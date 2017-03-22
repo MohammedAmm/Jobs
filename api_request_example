@@ -1,0 +1,4 @@
+GET /api/yes HTTP/1.1
+Host: 127.0.0.1
+Authorization: Bearer vr5HmMkzlxKE70W1y4MibiJUusZwZC25NOVBEx3BD1
+

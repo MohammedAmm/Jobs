@@ -25,5 +25,5 @@ Route::middleware('auth:api')->get('/user', function () {
 
 
 			return json_encode(['data'=>[1=>'one',2=>'two',3=>'three']]);
-		});
-    
+		})->middleware('auth:api');
+    	
