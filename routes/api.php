@@ -21,9 +21,8 @@ Route::middleware('auth:api')->get('/user', function () {
     	Route::post('user_reg','ApiController@user_reg');
 
 		
-		Route::get('yes',function (){
-
-
-			return json_encode(['data'=>[1=>'one',2=>'two',3=>'three']]);
+		Route::post('yes',function (Request $request){
+		return $request->input('data.1');
+		//return json_encode(['data'=>[1=>'one',2=>'two',3=>'three']]);
 		})->middleware('auth:api');
     	
