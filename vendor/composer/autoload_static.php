@@ -15,6 +15,7 @@ class ComposerStaticInit90ef9ab146f34517ee7554a38c81b0a7
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -87,6 +88,7 @@ class ComposerStaticInit90ef9ab146f34517ee7554a38c81b0a7
         'C' => 
         array (
             'Cron\\' => 5,
+            'Collective\\Html\\' => 16,
             'Carbon\\' => 7,
         ),
         'A' => 
@@ -222,6 +224,10 @@ class ComposerStaticInit90ef9ab146f34517ee7554a38c81b0a7
         array (
             0 => __DIR__ . '/..' . '/mtdowling/cron-expression/src/Cron',
         ),
+        'Collective\\Html\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -272,6 +278,7 @@ class ComposerStaticInit90ef9ab146f34517ee7554a38c81b0a7
     );
 
     public static $classMap = array (
+        'AddAdminProperty' => __DIR__ . '/../..' . '/database/migrations/2017_04_13_135959_add_admin_property.php',
         'AddApiTokenToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_203006_add_api_token_to_users.php',
         'AddJobAddressToWorker' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_142506_add_job_address_to_worker.php',
         'AddRoleIdToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_03_02_233737_add_role_id_to_users.php',

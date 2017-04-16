@@ -1,99 +1,44 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}
+  {!!Html::style('website/css/main.css')!!}
+  {!!Html::style('https://fonts.googleapis.com/css?family=Montserrat')!!}
+  {!!Html::style('https://fonts.googleapis.com/css?family=Lato')!!}
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
-
-    <!-- Scripts -->
-    <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
+  {!! Html::script('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')!!}
+  {!! Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')!!}
+  {!! Html::script('website/js/smoothscrolling.js')!!}
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+<body id="home" data-spy="scroll" data-target=".navbar" data-offset="150">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        7RFA
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                        
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }}  <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                @if(Auth::user()->role_id==1)
-                                <li>{{\App\Job::find(Auth::user()->worker->job_id)->name}}</li>
-                                <li>{{Auth::user()->worker->address->name}}</li>
-                                <li>{{Auth::user()->worker->phone}}</li>
-
-                                @endif
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        @if (Session::has('message'))
-         <div class="alert alert-info">{{ Session::get('message') }}</div>
-         @endif
-    <h1></h1> 
-        @yield('content')
-    </div>
-
+<!--Container (navbar) -->
+@include('partials._nav')
+<!-- Modal -->
+@include('partials._modal')
+                
+    @if (Session::has('message'))
+     <div class="alert alert-info">{{ Session::get('message') }}</div>
+     @endif 
+    @yield('content')
+   
+    <!-- <footer -->
+    <footer class="container-fluid text-center">
+      <a href="#home" title="To Top">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </a>
+      <p>© 2017 All Rights Reserved Terms of Use and Privacy Policy</p> 
+    </footer>
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
     <script>
+    @if (!empty(Session::get('error_code')) && Session::get('error_code') == 5) {
+      $(function() {
+        $('.bs-modal-sm').modal('show');
+    });@endif
+    }  
+    
         $('#my_role').on('change',function(){
             if( $(this).val()==="1"){
                 $("#me_role").show()

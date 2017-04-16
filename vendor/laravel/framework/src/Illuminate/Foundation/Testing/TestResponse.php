@@ -73,7 +73,7 @@ class TestResponse
     public function assertRedirect($uri)
     {
         PHPUnit::assertTrue(
-            $this->isRedirect(), 'Response status code ['.$this->status().'] is not a redirect status code.'
+            $this->isRedirect(), 'Response status code ['.$this->getStatusCode().'] is not a redirect status code.'
         );
 
         PHPUnit::assertEquals(app('url')->to($uri), $this->headers->get('Location'));
@@ -539,6 +539,17 @@ class TestResponse
     public function __get($key)
     {
         return $this->baseResponse->{$key};
+    }
+
+    /**
+     * Proxy isset() checks to the underlying base response.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    public function __isset($key)
+    {
+        return isset($this->baseResponse->{$key});
     }
 
     /**

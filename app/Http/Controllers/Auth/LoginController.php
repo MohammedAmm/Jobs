@@ -32,6 +32,20 @@ class LoginController extends Controller
      *
      * @return void
      */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+    if ($request->ajax()) {
+        return response()->json([
+            'error' => Lang::get('auth.failed')
+        ], 401);
+    }
+
+    return redirect()->back()
+        ->withInput($request->only($this->username(), 'remember'))
+        ->withErrors([
+            $this->username() => Lang::get('auth.failed'),
+        ]);
+}
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);

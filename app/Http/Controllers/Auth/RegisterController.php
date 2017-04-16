@@ -84,7 +84,7 @@ class RegisterController extends Controller
         }
         else{
             return User::create([
-                'api_token'=>str_random(60),
+                'api_token'=>str_random(60),    
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'role_id' => $data['role_id'],

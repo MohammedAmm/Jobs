@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddAdminProperty' => $baseDir . '/database/migrations/2017_04_13_135959_add_admin_property.php',
     'AddApiTokenToUsers' => $baseDir . '/database/migrations/2017_03_12_203006_add_api_token_to_users.php',
     'AddJobAddressToWorker' => $baseDir . '/database/migrations/2017_03_03_142506_add_job_address_to_worker.php',
     'AddRoleIdToUsers' => $baseDir . '/database/migrations/2017_03_02_233737_add_role_id_to_users.php',

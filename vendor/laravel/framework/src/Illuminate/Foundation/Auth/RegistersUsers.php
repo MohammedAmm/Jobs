@@ -2,12 +2,11 @@
 
 namespace Illuminate\Foundation\Auth;
 
-
-use App\Address;
-use App\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Address;
+use App\Job;
 use App\Role;
 
 trait RegistersUsers
