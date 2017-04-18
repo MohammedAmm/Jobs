@@ -19,6 +19,12 @@ Route::middleware('auth:api')->get('/user', function () {
 });
 
     	Route::post('user_reg','ApiController@user_reg');
+			
+			
+		
+	
+
+
 
 		
 		Route::post('yes',function (Request $request){

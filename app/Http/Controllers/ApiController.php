@@ -6,20 +6,40 @@ use Illuminate\Http\Request;
 use DB ;
 class ApiController extends Controller
 {
-     public function user_reg()
+     public function user_reg(Request $request)
     {
-    	DB::table('users')->insert(
+    	
 
-    	[
-                'api_token'=>str_random(60),
-                'name' => $_POST['name'],
-                'email' => $_POST['email'],
-                'role_id' => $_POST['role_id'],
-                'password' => bcrypt($_POST['password'])
-                // password encryption at client side is recommended
+           
+
+        
+        try {
+            
+            $token =str_random(60);
+
+        $id=DB::table('users')->insertGetId(
+
+        [
+                'api_token'=>$token,
+                'name' => $request->input('user.name'),
+                'email' => $request->input('user.email'),
+                'role_id' => $request->input('user.role_id'),
+                'password' => bcrypt($request->input('user.password'))
 
 
             ]);
+
+
+
+                return json_encode(['user'=>['name'=>$request->input('user.name'),'api_token'=>$token,'id'=>$id]]);
+
+        }
+
+         catch (Exception $e) {
+            
+            return 'some error';            
+        }
+
 
     }
 }
