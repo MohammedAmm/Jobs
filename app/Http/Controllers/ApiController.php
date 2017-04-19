@@ -24,8 +24,9 @@ class ApiController extends Controller
                 'name' => $request->input('user.name'),
                 'email' => $request->input('user.email'),
                 'role_id' => $request->input('user.role_id'),
-                'password' => bcrypt($request->input('user.password'))
-
+                'password' => bcrypt($request->input('user.password')),
+                'created_at'=>\Carbon\Carbon::now(),
+                'updated_at'=>\Carbon\Carbon::now()
 
             ]);
 
