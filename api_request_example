@@ -15,34 +15,39 @@ Content-Length: 82
 
 (not authenticated)
 
-POST /api/user_reg HTTP/1.1
+POST /api/worker_reg HTTP/1.1
 Host: 127.0.0.1:8000
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length: 78
+Content-Length: 140
 
-{"user":{"name":"aly","email":"aly@mail.com","role_id":"2","password":"pass"}}
-
-
+{"worker":{"name":"ahmed","email":"ahmed@mail.com","role_id":"1","password":"password","job_id":"1","phone":"01115693438","address_id":"1"}}
 
 
 
 
+user_reg_request
 
 
-register_request
-
-
-{'user':{'name':'ali','email':'ali@mail.com','role_id':'2','password':'password'}}
+82  {"user":{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}}
 
 
 
-register_response
+user_reg_response
 
 
-{'user':{'name':'ali','api_token':'token','id':'id'}}
-
+53 {"user":{"name":"ali","api_token":"token","id":"id"}}
 
 
 
 
+worker_reg_request
+
+
+140 {"worker":{"name":"ahmed","email":"ahmed@mail.com","role_id":"1","password":"password","job_id":"1","phone":"01115693438","address_id":"1"}}
+
+
+
+worker_reg_response
+
+{"worker":{"name":"ahmed","api_token":"b0SlxPnZoTcxNiTLKvFqXuQoTjH8AfTpSnJHZl4jAYRYT9mvxvQ5yZ838EGq","id":4,"job_id":"1"}}

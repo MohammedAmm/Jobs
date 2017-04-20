@@ -13,13 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function () {
-    return $request->user();
-
-});
-
     	Route::post('user_reg','ApiController@user_reg');
 			
+    	Route::post('worker_reg','ApiController@worker_reg');
 			
 		
 	
@@ -27,8 +23,11 @@ Route::middleware('auth:api')->get('/user', function () {
 
 
 		
-		Route::post('yes',function (Request $request){
-		return $request->input('data.1');
-		//return json_encode(['data'=>[1=>'one',2=>'two',3=>'three']]);
-		})->middleware('auth:api');
+		Route::get('yes',function (){
+					
+				$x=array(json_decode('{"user":{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}}
+'));
+				var_dump($x);
+
+		});
     	
