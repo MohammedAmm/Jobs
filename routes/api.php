@@ -23,11 +23,10 @@ use Illuminate\Http\Request;
 
 
 		
-		Route::get('yes',function (){
+		Route::post('yes',function (Request $request){
 					
-				$x=array(json_decode('{"user":{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}}
-'));
-				var_dump($x);
+				return 	json_encode(['user'=>['name'=>$request->input('name'),'email'=>$request->input('email')]]);
+							
 
 		});
     	

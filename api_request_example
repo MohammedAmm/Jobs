@@ -19,10 +19,9 @@ POST /api/worker_reg HTTP/1.1
 Host: 127.0.0.1:8000
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length: 140
+Content-Length: 129
 
-{"worker":{"name":"ahmed","email":"ahmed@mail.com","role_id":"1","password":"password","job_id":"1","phone":"01115693438","address_id":"1"}}
-
+{"name":"ahmed","email":"ahmed@mail.com","role_id":"1","password":"password","job_id":"1","phone":"01115693438","address_id":"1"}
 
 
 
@@ -38,16 +37,17 @@ user_reg_response
 
 53 {"user":{"name":"ali","api_token":"token","id":"id"}}
 
+53 {"name":"ali","api_token":"token","id":"id"}
 
 
 
 worker_reg_request
 
 
-140 {"worker":{"name":"ahmed","email":"ahmed@mail.com","role_id":"1","password":"password","job_id":"1","phone":"01115693438","address_id":"1"}}
+140 {"name":"ahmed","email":"ahmed@mail.com","role_id":"1","password":"password","job_id":"1","phone":"01115693438","address_id":"1"}
 
 
 
 worker_reg_response
 
-{"worker":{"name":"ahmed","api_token":"b0SlxPnZoTcxNiTLKvFqXuQoTjH8AfTpSnJHZl4jAYRYT9mvxvQ5yZ838EGq","id":4,"job_id":"1"}}
+{"worker":{"name":"ahmed","api_token":"b0SlxPnZoTcxNiTLKvFqXuQoTjH8AfTpSnJHZl4jAYRYT9mvxvQ5yZ838EGq","id":4}}
