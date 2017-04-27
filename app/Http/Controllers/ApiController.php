@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB ;
+use DB;
+
 class ApiController extends Controller
 {
      public function user_reg(Request $request)
@@ -68,8 +69,8 @@ class ApiController extends Controller
             ]);
 
 
-             $job_id=DB::table('jobs')->where('name',$request->input('job'))->value('id');    
-             $address_id=DB::table('addresses')->where('name',$request->input('address'))->value('id');
+             $job_id=DB::table('jobs')->where('name',$request->input('job'))->sharedlock()->value('id');    
+             $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
             DB::table('workers')->insert(
 
                 [
@@ -109,7 +110,38 @@ class ApiController extends Controller
 
      public function login(Request $request)
     {
-        //code
+        try 
+        {
+             if($user=DB::table('users')->where('email',$request->input('email'))->sharedlock()->first())
+             {
+
+                if (\Hash::check($request->input('password'),$user->password)) 
+                {
+                    return json_encode(['user'=>['id'=>$user->id,'api_token'=>$user->api_token,'name'=>$user->name,'role_id'=>$user->role_id]]
+);
+                }
+                else 
+                {
+
+                    return 'wrong password' ;
+                }
+
+             }
+             else 
+             {
+
+
+                return 'wrong email' ;
+             }
+
+             
+            
+        }
+         catch (\Exception $e) 
+
+        {
+            return 'login error' ;
+        }
     }
 
 
