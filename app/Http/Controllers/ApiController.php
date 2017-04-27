@@ -67,15 +67,18 @@ class ApiController extends Controller
 
             ]);
 
+
+             $job_id=DB::table('jobs')->where('name',$request->input('job'))->value('id');    
+             $address_id=DB::table('addresses')->where('name',$request->input('address'))->value('id');
             DB::table('workers')->insert(
 
-
                 [
+       
 
                 'user_id'=>$id,
-                'job_id'=>$request->input('job_id'),
+                'job_id'=>$job_id,
                 'phone'=>$request->input('phone'),
-                'address_id'=>$request->input('address_id'),
+                'address_id'=>$address_id,
                 'created_at'=>\Carbon\Carbon::now(),
                 'updated_at'=>\Carbon\Carbon::now()
 
