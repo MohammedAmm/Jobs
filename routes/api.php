@@ -17,16 +17,30 @@ use Illuminate\Http\Request;
 			
     	Route::post('worker_reg','ApiController@worker_reg');
 		Route::post('login','ApiController@login');	
-		
+		Route::post('worker_update','ApiController@worker_update');
 	
 
 
 
 		
 		Route::post('yes',function (Request $request){
-					
-				return 	json_encode(['user'=>['name'=>$request->input('name'),'email'=>$request->input('email')]]);
-							
+
+			if($user=\Auth::guard('api')->user())
+			{		
+				
+				 
+					// return 	json_encode(['user'=>['name'=>$request->input('user.name'),'email'=>$request->input('user.email')]]);
+					// return $request->header('Authorization');
+				return $user->name ; 
+
+			}
+			else
+			{
+
+				return  'not authenticated'; 
+
+			}
+
 
 		});
     	

@@ -145,4 +145,61 @@ class ApiController extends Controller
     }
 
 
+    public function worker_update(Request $request)
+    {
+        try 
+        {
+            if ($user=\Auth::guard('api')->user())
+            {
+                $job_id=DB::table('jobs')->where('name',$request->input('job'))->sharedlock()->value('id');    
+                $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
+                 DB::beginTransaction();
+                 
+                 // {"job":"Carpenter" ,"name":"ahmed", "phone" : "01115693438" ,"address":"test","email":"ahmed@mail.com" }
+
+
+                 DB::table('users')->where('api_token',$user->api_token)->lockForUpdate()->update([
+                    'name'=>$request->input('name'),
+                   'email'=>$request->input('email'),
+                   'updated_at'=>\Carbon\Carbon::now()
+
+                         ]);
+
+
+                 DB::table('workers')->where('user_id',$user->id)->lockForUpdate()->update([
+                    'job_id'=>$job_id,
+                    'phone'=>$request->input('phone'),
+                    'address_id'=>$address_id,
+                    'updated_at'=>\Carbon\Carbon::now()
+
+                    ]);
+                DB::commit() ;
+                // {"worker":{"name":"ahmed","email":"ahmed@mail.com","id":4,"job":"Plumber" ,"phone":"01115693438","address":"test"}}
+
+                return json_encode([
+                    'worker'=>[
+                    'name'=>$request->input('name'),
+                    'email'=>$request->input('email'),
+                    'id'=>$user->id,
+                    'job'=>$request->input('job'),
+                    'phone'=>$request->input('phone'),
+                    'address'=>$request->input('address')
+                    ]]) ; 
+            }
+            else
+            {
+
+                return 'not authenticated';
+
+            }    
+        } 
+        
+        catch (\Exception $e) 
+        {
+            DB::rollBack();
+            return 'update faild';
+
+        }
+    }
+
 }

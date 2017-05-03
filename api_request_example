@@ -1,21 +1,20 @@
 (authenticated)
 
-POST /api/user_reg HTTP/1.1
+POST /api/worker_update HTTP/1.1
 Host: 127.0.0.1:8000
-Authorization: Bearer Bv259huCMQHBCYpUEYjBrKkVZKMeLurLdzqdT2ZnTyKcFkZLFv8NDo5jMfeb
+Authorization: Bearer 0eHBkpDCU1G8WdHODs85PayelHEtTbAucHivTyvNGC8Vbo6KFF383GA0Kf3V
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length: 82
+Content-Length: 103
 
-{"user":{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}}
-
+{"job":"Carpenter" ,"name":"ahmed", "phone" : "01115693438" ,"address":"test","email":"ahmed@mail.com"}
 
 
 
 
 (not authenticated)
 
-POST /api/login HTTP/1.1
+POST /api/yes HTTP/1.1
 Host: 127.0.0.1:8000
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
@@ -28,16 +27,15 @@ Content-Length: 48
 user_reg_request
 
 
-  {"user":{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}}
+{"user":{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}}
 
 
 
 user_reg_response
 
 
- {"user":{"name":"ali","api_token":"token","id":"id"}}
+{"user":{"name":"ali","api_token":"token","id":"id"}}
 
- {"name":"ali","api_token":"token","id":"id"}
 
 
 
@@ -50,7 +48,7 @@ worker_reg_request
 
 worker_reg_response
 
-{"worker":{"name":"ahmed","api_token":"b0SlxPnZoTcxNiTLKvFqXuQoTjH8AfTpSnJHZl4jAYRYT9mvxvQ5yZ838EGq","id":4}}
+{"worker":{"name":"ahmed","api_token":"b0SlxPnZoTcxNiTLKvFqXuQoTjH8AfTpSnJHZl4jAYRYT9mvxvQ5yZ838EGq","id":"4"}}
 
 
 
@@ -64,3 +62,36 @@ login request
 login response
 
 {"user":{"id":"id","api_token":"api_token","name":"name","role_id":"role_id"}}
+
+
+
+//woker_update_request
+{"job":"Plumber" ,"name":"ahmed", "phone" : "01115693438" ,"address":"test","email":"ahmed@mail.com" }
+
+
+//worker_update_response
+{"worker":{"name":"ahmed","email":"ahmed@mail.com","id":4,"job":"Plumber" ,"phone":"01115693438","address":"test"}}
+
+
+
+//user_update_request
+{"name":"ahmed","email":"ahmed@mail.com"}
+
+//user_update_response
+{"user":{"name":"ahmed","email":"ahmed@mail.com","id":"4"}}
+
+
+//retrieve_user_request
+{"id":"4"}
+
+//retrive_user_response
+{"user":{"id":"4","name":"ahmed","email":"ahmed@mail.com"}}
+
+//retrive_worker_request
+{"id":"4"}
+
+//retrive_workker_response
+{"worker":{"id":"4","name":"ahmed","email":"ahmed@mail.com","job":"Plumber","phone":"01115693438","address":"test"}}
+
+
+
