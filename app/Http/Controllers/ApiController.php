@@ -197,6 +197,54 @@ class ApiController extends Controller
         catch (\Exception $e) 
         {
             DB::rollBack();
+            return 'worker update faild';
+
+        }
+    }
+
+
+    public function user_update(Request $request)
+    {
+        try 
+        {
+            if ($user=\Auth::guard('api')->user())
+            {
+                 DB::beginTransaction();
+                 
+
+
+//{"name":"ahmed","email":"ahmed@mail.com"}
+
+
+                 DB::table('users')->where('api_token',$user->api_token)->lockForUpdate()->update([
+                    'name'=>$request->input('name'),
+                   'email'=>$request->input('email'),
+                   'updated_at'=>\Carbon\Carbon::now()
+
+                         ]);
+
+
+                DB::commit() ;
+//{"user":{"name":"ahmed","email":"ahmed@mail.com","id":"4"}}
+
+                return json_encode([
+                    'user'=>[
+                    'name'=>$request->input('name'),
+                    'email'=>$request->input('email'),
+                    'id'=>$user->id
+                     ]]) ; 
+            }
+            else
+            {
+
+                return 'not authenticated';
+
+            }    
+        } 
+        
+        catch (\Exception $e) 
+        {
+            DB::rollBack();
             return 'update faild';
 
         }

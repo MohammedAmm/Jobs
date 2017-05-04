@@ -1,13 +1,13 @@
 (authenticated)
 
-POST /api/worker_update HTTP/1.1
+POST /api/user_update HTTP/1.1
 Host: 127.0.0.1:8000
 Authorization: Bearer 0eHBkpDCU1G8WdHODs85PayelHEtTbAucHivTyvNGC8Vbo6KFF383GA0Kf3V
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length: 103
+Content-Length: 41
 
-{"job":"Carpenter" ,"name":"ahmed", "phone" : "01115693438" ,"address":"test","email":"ahmed@mail.com"}
+{"name":"ahmed","email":"ahmed@mail.com"}
 
 
 
@@ -65,19 +65,23 @@ login response
 
 
 
-//woker_update_request
+woker_update_request
+
 {"job":"Plumber" ,"name":"ahmed", "phone" : "01115693438" ,"address":"test","email":"ahmed@mail.com" }
 
 
-//worker_update_response
+worker_update_response
+
 {"worker":{"name":"ahmed","email":"ahmed@mail.com","id":4,"job":"Plumber" ,"phone":"01115693438","address":"test"}}
 
 
 
-//user_update_request
+user_update_request
+
 {"name":"ahmed","email":"ahmed@mail.com"}
 
-//user_update_response
+user_update_response
+
 {"user":{"name":"ahmed","email":"ahmed@mail.com","id":"4"}}
 
 
@@ -94,4 +98,4 @@ login response
 {"worker":{"id":"4","name":"ahmed","email":"ahmed@mail.com","job":"Plumber","phone":"01115693438","address":"test"}}
 
 
-
+//password_reset

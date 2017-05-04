@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
     	Route::post('worker_reg','ApiController@worker_reg');
 		Route::post('login','ApiController@login');	
 		Route::post('worker_update','ApiController@worker_update');
-	
+		Route::post('user_update','ApiController@user_update');	
 
 
 
