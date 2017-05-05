@@ -1,24 +1,25 @@
 (authenticated)
 
-POST /api/worker_retrive HTTP/1.1
+POST /api/password_reset HTTP/1.1
 Host: 127.0.0.1:8000
 Authorization: Bearer 0eHBkpDCU1G8WdHODs85PayelHEtTbAucHivTyvNGC8Vbo6KFF383GA0Kf3V
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length: 0
+Content-Length: 46
 
-{"name":"ahmed","email":"ahmed@mail.com"}
+{"old_pass":"opassword","new_pass":"password"}
+
 
 
 
 
 (not authenticated)
 
-POST /api/yes HTTP/1.1
+POST /api/login HTTP/1.1
 Host: 127.0.0.1:8000
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length: 48
+Content-Length:48
 
 {"email":"ahmed@mail.com","password":"password"}
 
@@ -27,7 +28,7 @@ Content-Length: 48
 user_reg_request
 
 
-{"user":{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}}
+{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}
 
 
 
@@ -42,7 +43,7 @@ user_reg_response
 worker_reg_request
 
 
-{"name":"ahmed","email":"ahmed@mail.com","role_id":"1","password":"password","job":"Plumber","phone":"01115693438","address":"test"}
+{"name":"emad","email":"emad@mail.com","role_id":"1","password":"password","job":"Electrician","phone":"01115693538","address":"test"}
 
 
 
@@ -95,9 +96,11 @@ user_retrive_response
 worker_retrive_request
 
 
-//workker_retrive_response
+workker_retrive_response
 
 {"worker":{"id":"4","name":"ahmed","email":"ahmed@mail.com","job":"Plumber","phone":"01115693438","address":"test"}}
 
+password_reset_request
 
-//password_reset
+{"old_pass":"password","new_pass":"npassword"}
+

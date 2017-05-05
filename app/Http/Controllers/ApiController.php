@@ -334,5 +334,35 @@ class ApiController extends Controller
             }
         }
 
+        public function password_reset(Request $request)
+        {
+            try 
+            {
+              if($user=\Auth::guard('api')->user())
+              {
+                if (\Hash::check($request->input('old_pass'),$user->password))
+                    
+                 {
+                    DB::table('users')->where('api_token',$user->api_token)->update(['password'=>bcrypt($request->input('new_pass'))]);     
+                    return 'password updated successfully'; 
+                 }
+                else
+                {
 
+                    return 'old password wrong' ;
+                }       
+
+
+              }
+              else 
+              {
+
+                return 'not authenticated' ;
+              }  
+            }
+            catch (\Exception $e) 
+            {
+                
+            }
+        }
 }

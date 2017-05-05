@@ -21,7 +21,7 @@ use Illuminate\Http\Request;
 		Route::post('user_update','ApiController@user_update');	
 		Route::post('user_retrive','ApiController@user_retrive');
 		Route::post('worker_retrive','ApiController@worker_retrive');
-
+		Route::post('password_reset','ApiController@password_reset');
 
 		
 		Route::post('yes',function (Request $request){
