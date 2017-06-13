@@ -24,7 +24,7 @@ use Illuminate\Http\Request;
 		Route::post('user_retrieve','ApiController@user_retrive');
 		Route::post('worker_retrieve','ApiController@worker_retrive');
 		Route::post('password_reset','ApiController@password_reset');
-		Route::get('search','ApiController@search');
+		Route::post('search','ApiController@search');
 		
 		Route::post('yes',function (Request $request){
 
