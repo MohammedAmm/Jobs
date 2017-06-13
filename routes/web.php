@@ -13,11 +13,24 @@
 
 Auth::routes();
 Route::get('/','HomeController@index');
+Route::post('/search','SearchController@search');
+Route::get('/search','HomeController@index');
+Route::get('/worker/{id}','ProfileController@show')->name('profile');
+Route::get('profile', 'ProfileController@profile');
+Route::post('profile', 'ProfileController@update_info');
+Route::get('/results', function() {
+    //
+    return view('results');
+});
 Route::get('/home', 'HomeController@index');
-Route::resource('roles','RoleController');
+Route::resource('ratings', 'RatingController');
 Route::group(['middleware'=>'admin'],function()
 {
 	# code...
 	Route::get('/adminpanel','AdminController@index');
 	Route::resource('/adminpanel/users','UsersController');
+	Route::resource('/adminpanel/jobs','JobController');
+	Route::resource('/adminpanel/addresses','AddressController');
+
+
 });

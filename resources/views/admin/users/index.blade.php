@@ -1,9 +1,5 @@
 @extends('admin.layouts.app')
 @section('title','Users')
-@section('header')
-	{!! Html::style('admin/plugins/datatables/dataTables.bootstrap.css')!!}
-@endsection
-
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -17,7 +13,6 @@
         <li class="active"><a href="{{url('/adminpanel/users')}}">Tables</a></li>
       </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -28,7 +23,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+              <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
                   <th>UserName</th>
@@ -81,21 +76,4 @@
 
 
 
-@endsection
-@section('footer')
-	{!!Html::script('admin/plugins/datatables/jquery.dataTables.min.js')!!}
-	{!!Html::script('admin/plugins/datatables/dataTables.bootstrap.min.js')!!}
-	<script>
-		  $(function () {
-		    $("#example1").DataTable();
-		    $('#example2').DataTable({
-		      "paging": true,
-		      "lengthChange": false,
-		      "searching": false,
-		      "ordering": true,
-		      "info": true,
-		      "autoWidth": false
-		    });
-		  });
-	</script>
 @endsection

@@ -23,4 +23,13 @@ class Worker extends Model
         # code...
         return $this->belongsTo('App\Job');
     }
+
+    public function averageRating() {
+        return $this->hasMany(Rating::class, 'worker_id', 'user_id')->avg('ratings');
+    }
+
+    public function totalRatings() {
+        return $this->hasMany(Rating::class, 'worker_id', 'user_id')->count();
+    }
+    
 }

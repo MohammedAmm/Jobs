@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
-
+namespace
+ App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Rating;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -36,5 +36,9 @@ class User extends Authenticatable
     {
         # code...
         return $this->hasOne('App\Worker');
+    }
+
+    public function sentRates() {
+        return $this->hasMany(Rating::class);
     }
 }

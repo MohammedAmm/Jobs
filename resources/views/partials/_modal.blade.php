@@ -236,7 +236,6 @@
             $("#register-name").removeClass("has-error");
             $("#register-email").removeClass("has-error");
             $("#register-password").removeClass("has-error");
-
             $.ajax({
                 url:'/register',
                 type:'POST',
