@@ -77,6 +77,9 @@ class ApiController extends Controller
 
              $job_id=DB::table('jobs')->where('name',$request->input('job'))->sharedlock()->value('id');    
              $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
+          
+
+
             DB::table('workers')->insert(
 
                 [
@@ -266,7 +269,7 @@ class ApiController extends Controller
 
         }
     }
-        public function user_retrive()
+        public function user_retrieve()
         {
             //{"user":{"id":"4","name":"ahmed","email":"ahmed@mail.com"}}
 
@@ -298,7 +301,7 @@ class ApiController extends Controller
             }
         }
 
-        public function worker_retrive()
+        public function worker_retrieve()
         {
             try 
             {
@@ -306,9 +309,9 @@ class ApiController extends Controller
                 if($user=\Auth::guard('api')->user())
                 {
 //{"worker":{"id":"4","name":"ahmed","email":"ahmed@mail.com","job":"Plumber","phone":"01115693438","address":"test"}}
-                    $worker=DB::table('workers')->where('user_id',$user->id)->first();
-                    $job=DB::table('jobs')->where('id',$worker->job_id)->value('name');
-                    $address=DB::table('addresses')->where('id',$worker->address_id)->value('name');
+                    $worker=DB::table('workers')->where('user_id',$user->id)->sharedlock()->first();
+                    $job=DB::table('jobs')->where('id',$worker->job_id)->sharedlock()->value('name');
+                    $address=DB::table('addresses')->where('id',$worker->address_id)->sharedlock()->value('name');
                     return json_encode([
                         'worker'=>[
                         'id'=>$user->id
@@ -343,7 +346,7 @@ class ApiController extends Controller
                 if (\Hash::check($request->input('old_pass'),$user->password))
                     
                  {
-                    DB::table('users')->where('api_token',$user->api_token)->update(['password'=>bcrypt($request->input('new_pass'))]);     
+                    DB::table('users')->where('id',$user->id)->lockForUpdate()->update(['password'=>bcrypt($request->input('new_pass'))]);     
                     return 'password updated successfully'; 
                  }
                 else
@@ -357,7 +360,7 @@ class ApiController extends Controller
               else 
               {
 
-                return 'not authenticated' ;
+                return 'not authenticated';
               }  
             }
             catch (\Exception $e) 
@@ -365,4 +368,40 @@ class ApiController extends Controller
                 
             }
         }
+
+            public function search(Request $request)
+            {
+                try 
+                {
+                 
+               if (\Auth::guard('api')->check())
+                {
+                       
+
+
+
+                $job_id=DB::table('jobs')->where('name',$request->input('job_name'))->sharedlock()->value('id');
+                $address_id=DB::table('addresses')->where('name',$request->input('address_name'))->sharedlock()->value('id');
+
+
+
+                 return json_encode(DB::table('workers')->where([['job_id',$job_id],['address_id',$address_id]])->sharedlock()->skip($request->input('try')*10)->take(10));
+
+
+
+               }
+
+               else 
+               {
+
+                return 'Not authenticated' ;
+               }
+   
+                } catch (\Exception $e) {
+                return 'something went wrong' ;      
+                }
+            }
+
+
+
 }

@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
+ 
+
 */
 
     	Route::post('user_reg','ApiController@user_reg');
@@ -19,10 +21,10 @@ use Illuminate\Http\Request;
 		Route::post('login','ApiController@login');	
 		Route::post('worker_update','ApiController@worker_update');
 		Route::post('user_update','ApiController@user_update');	
-		Route::post('user_retrive','ApiController@user_retrive');
-		Route::post('worker_retrive','ApiController@worker_retrive');
+		Route::post('user_retrieve','ApiController@user_retrive');
+		Route::post('worker_retrieve','ApiController@worker_retrive');
 		Route::post('password_reset','ApiController@password_reset');
-
+		Route::get('search','ApiController@search');
 		
 		Route::post('yes',function (Request $request){
 
@@ -44,4 +46,11 @@ use Illuminate\Http\Request;
 
 
 		});
+
+
+		Route::get('ts',function (Request $request)
+		{
+return json_encode(DB::table('workers')->where([['job_id',$request->input('job_id')],['address_id',$request->input('address_id')]])->sharedlock()->skip($request->input('try')*10)->take(10)->get());
+		});
+    	
     	
