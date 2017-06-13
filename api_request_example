@@ -1,13 +1,106 @@
-POST /api/yes HTTP/1.1
-Host: 127.0.0.1:8000
-Authorization: Bearer vr5HmMkzlxKE70W1y4MibiJUusZwZC25NOVBEx3BD1
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-Content-Type: application/json
-Content-Length: 42
+(authenticated)
 
-{"data":{"1":"one","2":"two","3":"three"}}
+POST /api/password_reset HTTP/1.1
+Host: 127.0.0.1:8000
+Authorization: Bearer 0eHBkpDCU1G8WdHODs85PayelHEtTbAucHivTyvNGC8Vbo6KFF383GA0Kf3V
+Accept-Language: en-US,en;q=0.5
+Content-Type: application/json
+Content-Length: 46
+
+{"old_pass":"opassword","new_pass":"password"}
+
+
+
+
+
+(not authenticated)
+
+POST /api/login HTTP/1.1
+Host: 127.0.0.1:8000
+Accept-Language: en-US,en;q=0.5
+Content-Type: application/json
+Content-Length:48
+
+{"email":"ahmed@mail.com","password":"password"}
+
+
+
+user_reg_request
+
+
+{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}
+
+
+
+user_reg_response
+
+
+{"user":{"name":"ali","api_token":"token","id":"id"}}
+
+
+
+
+worker_reg_request
+
+
+{"name":"emad","email":"emad@mail.com","role_id":"1","password":"password","job":"Electrician","phone":"01115693538","address":"test"}
+
+
+
+worker_reg_response
+
+{"worker":{"name":"ahmed","api_token":"b0SlxPnZoTcxNiTLKvFqXuQoTjH8AfTpSnJHZl4jAYRYT9mvxvQ5yZ838EGq","id":"4"}}
+
+
+
+
+
+login request 
+
+{"email":"ahmed@mail.com","password":"password"}
+
+
+login response
+
+{"user":{"id":"id","api_token":"api_token","name":"name","role_id":"role_id"}}
+
+
+
+woker_update_request
+
+{"job":"Plumber" ,"name":"ahmed", "phone" : "01115693438" ,"address":"test","email":"ahmed@mail.com" }
+
+
+worker_update_response
+
+{"worker":{"name":"ahmed","email":"ahmed@mail.com","id":4,"job":"Plumber" ,"phone":"01115693438","address":"test"}}
+
+
+
+user_update_request
+
+{"name":"ahmed","email":"ahmed@mail.com"}
+
+user_update_response
+
+{"user":{"name":"ahmed","email":"ahmed@mail.com","id":"4"}}
+
+
+user_retrive_request
+
+
+user_retrive_response
+
+{"user":{"id":"4","name":"ahmed","email":"ahmed@mail.com"}}
+
+worker_retrive_request
+
+
+workker_retrive_response
+
+{"worker":{"id":"4","name":"ahmed","email":"ahmed@mail.com","job":"Plumber","phone":"01115693438","address":"test"}}
+
+password_reset_request
+
+{"old_pass":"password","new_pass":"npassword"}
+
