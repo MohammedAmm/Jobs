@@ -404,7 +404,9 @@ class ApiController extends Controller
 
             public function rate(Request $request)
             {
-                if($user=\Auth::guard('api')->user())
+                try 
+                {
+                                 if($user=\Auth::guard('api')->user())
 
                 {
                     if (DB::table('ratings')->where([['worker_id',$request->input('worker_id')],['user_id',$user->id]])) 
@@ -412,13 +414,28 @@ class ApiController extends Controller
                      
                         #update the existing record 
 
+                        DB::beginTransaction();
+                        DB::table('ratings')->where([['worker_id',$request->input('worker_id')],['user_id',$user->id]])->update(['rating'=>$request->input('rating')]);
+                        $rate=DB::table('ratings')->where([['worker_id',$request->input('worker_id')]])->avg('rating');
+                        DB::table('workers')->where([['user_id',$request->input('workder_id')]])->update(['rate'=>$rate]);
+
+                        DB::commit();
+                        return 'rate success' ;
+
+
 
                     }
 
                     else
                     {
 
-                    #make new record                     
+                    DB::beginTransaction(); 
+                    DB::table('ratings')->insert(['worker_id'=>$request->input('worker_id'),'user_id'=>$user->id,'rating'=>$request->input('rating')]);
+                    $rate=DB::table('ratings')->where([['worker_id',$request->input('worker_id')]])->avg('rating');
+                    DB::table('workers')->where([['user_id',$request->input('workder_id')]])->update(['rate'=>$rate]);
+                    DB::commit();
+
+                    return 'rate success' ;
 
                     }
 
@@ -433,5 +450,13 @@ class ApiController extends Controller
 
 
             }
+                    catch (\Exception $e) 
+                {
+                    DB::rollBack();
+                return 'something wrong' ;    
+                }
 
-}
+                } 
+                
+            }
+

@@ -104,3 +104,18 @@ password_reset_request
 
 {"old_pass":"password","new_pass":"npassword"}
 
+
+search_request
+
+{"job_name":"Plumber","address_name":"test","try":"2"}
+
+search_response
+
+#show him 
+
+
+rate_request
+{"worker_id":"2","rating":"5"}
+
+
+
