@@ -402,6 +402,36 @@ class ApiController extends Controller
                 }
             }
 
+            public function rate(Request $request)
+            {
+                if($user=\Auth::guard('api')->user())
 
+                {
+                    if (DB::table('ratings')->where([['worker_id',$request->input('worker_id')],['user_id',$user->id]])) 
+                    {
+                     
+                        #update the existing record 
+
+
+                    }
+
+                    else
+                    {
+
+                    #make new record                     
+
+                    }
+
+
+
+                }
+                else 
+                {
+
+                    return 'not authenticated';
+                }
+
+
+            }
 
 }
