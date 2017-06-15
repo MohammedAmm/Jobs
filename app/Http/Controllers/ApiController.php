@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
+//use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Exception;
 use DB;
 
 class ApiController extends Controller
@@ -48,7 +48,7 @@ class ApiController extends Controller
 
         }
 
-         catch (\Exception $ex) {
+         catch (Exception $ex) {
             
             return 'user registeration error';            
         }
@@ -116,7 +116,7 @@ class ApiController extends Controller
             } 
 
 
-            catch (\Exception $e) 
+            catch (Exception $e) 
 
             {
                 DB::rollBack();
@@ -162,7 +162,7 @@ class ApiController extends Controller
              
             
         }
-         catch (\Exception $e) 
+         catch (Exception $e) 
 
         {
             return 'login error' ;
@@ -219,7 +219,7 @@ class ApiController extends Controller
             }    
         } 
         
-        catch (\Exception $e) 
+        catch (Exception $e) 
         {
             DB::rollBack();
             return 'worker update faild';
@@ -267,7 +267,7 @@ class ApiController extends Controller
             }    
         } 
         
-        catch (\Exception $e) 
+        catch (Exception $e) 
         {
             DB::rollBack();
             return 'update faild';
@@ -299,7 +299,7 @@ class ApiController extends Controller
                 }
     
             } 
-            catch (\Exception $e) 
+            catch (Exception $e) 
             {
              
              return 'user retrive error' ;   
@@ -336,7 +336,7 @@ class ApiController extends Controller
                     return 'worker retrive error' ;
                 }
             }
-             catch (\Exception $e) 
+             catch (Exception $e) 
             {
                 
             }
@@ -368,7 +368,7 @@ class ApiController extends Controller
                 return 'not authenticated';
               }  
             }
-            catch (\Exception $e) 
+            catch (Exception $e) 
             {
                 
             }
@@ -402,7 +402,7 @@ class ApiController extends Controller
                 return 'Not authenticated' ;
                }
    
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                 return 'something went wrong' ;      
                 }
             }
@@ -455,7 +455,7 @@ class ApiController extends Controller
 
 
             }
-                    catch (\Exception $e) 
+                    catch (Exception $e) 
                 {
                     DB::rollBack();
                 return 'something wrong' ;    
@@ -466,9 +466,13 @@ class ApiController extends Controller
 
 
 
-                public function up(Request $request)
+                public function profileUp(Request $request)
                 {
-                    
+                    try 
+                    {
+                        if (!$user=Auth::guard('api')->user()) // correct this  
+                        {
+                                 
                     if ($file=$request->file('image'))
                      {
                         if ($request->file('image')->isValid())
@@ -476,14 +480,27 @@ class ApiController extends Controller
                          
                          $file=Storage::put('profile',$file) ;
 
-
+                         
+                         
+                        return redirect('uploads/'.$file)  ;
 
 
 
                      }
 
-
-                }
+                        }
+                }                      
+                       else 
+                       {
+                        return 'not authenticated' ;
+                       } 
+                               
+                    } 
+                    catch (Exception $e) 
+                    {
+                        return 'error' ;    
+                    }
                 
             }
 
+}

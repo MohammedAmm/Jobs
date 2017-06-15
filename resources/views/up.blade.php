@@ -3,7 +3,7 @@
 <html>
 <body>
 
-<form action="up1" method="post" enctype="multipart/form-data">
+<form action="profileUp" method="post" enctype="multipart/form-data">
     Select image to upload:
     <input type="file" name="image" >
     <input type="submit" value="Upload Image" name="submit">
