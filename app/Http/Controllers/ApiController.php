@@ -469,15 +469,14 @@ class ApiController extends Controller
                 public function up(Request $request)
                 {
                     
-                    if (Input::hasFile('image'))
+                    if ($file=$request->file('image'))
                      {
-                        if (Input::file('image')->isValid())
+                        if ($request->file('image')->isValid())
                         {
                          
-                         Input::file('image')->move('../storage/app');
-                         return view('up');
+                         $file=Storage::put('profile',$file) ;
 
-                        }
+
 
 
 
