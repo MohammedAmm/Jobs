@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+
 use DB;
 
 class ApiController extends Controller
@@ -129,7 +134,7 @@ class ApiController extends Controller
              if($user=DB::table('users')->where('email',$request->input('email'))->sharedlock()->first())
              {
 
-                if (\Hash::check($request->input('password'),$user->password)) 
+                if (Hash::check($request->input('password'),$user->password)) 
                 {
                     return json_encode([
                         'user'=>[
@@ -169,7 +174,7 @@ class ApiController extends Controller
     {
         try 
         {
-            if ($user=\Auth::guard('api')->user())
+            if ($user=Auth::guard('api')->user())
             {
                 $job_id=DB::table('jobs')->where('name',$request->input('job'))->sharedlock()->value('id');    
                 $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
@@ -227,7 +232,7 @@ class ApiController extends Controller
     {
         try 
         {
-            if ($user=\Auth::guard('api')->user())
+            if ($user=Auth::guard('api')->user())
             {
                  DB::beginTransaction();
                  
@@ -275,7 +280,7 @@ class ApiController extends Controller
 
             try 
             {
-                            if($user=\Auth::guard('api')->user())
+                            if($user=Auth::guard('api')->user())
                 {
 
                 return json_encode([
@@ -306,7 +311,7 @@ class ApiController extends Controller
             try 
             {
 
-                if($user=\Auth::guard('api')->user())
+                if($user=Auth::guard('api')->user())
                 {
 //{"worker":{"id":"4","name":"ahmed","email":"ahmed@mail.com","job":"Plumber","phone":"01115693438","address":"test"}}
                     $worker=DB::table('workers')->where('user_id',$user->id)->sharedlock()->first();
@@ -341,9 +346,9 @@ class ApiController extends Controller
         {
             try 
             {
-              if($user=\Auth::guard('api')->user())
+              if($user=Auth::guard('api')->user())
               {
-                if (\Hash::check($request->input('old_pass'),$user->password))
+                if (Hash::check($request->input('old_pass'),$user->password))
                     
                  {
                     DB::table('users')->where('id',$user->id)->lockForUpdate()->update(['password'=>bcrypt($request->input('new_pass'))]);     
@@ -374,7 +379,7 @@ class ApiController extends Controller
                 try 
                 {
                  
-               if (\Auth::guard('api')->check())
+               if (Auth::guard('api')->check())
                 {
                        
 
@@ -406,7 +411,7 @@ class ApiController extends Controller
             {
                 try 
                 {
-                                 if($user=\Auth::guard('api')->user())
+                                 if($user=Auth::guard('api')->user())
 
                 {
                     if (DB::table('ratings')->where([['worker_id',$request->input('worker_id')],['user_id',$user->id]])) 
@@ -457,6 +462,29 @@ class ApiController extends Controller
                 }
 
                 } 
+
+
+
+
+                public function up(Request $request)
+                {
+                    
+                    if (Input::hasFile('image'))
+                     {
+                        if (Input::file('image')->isValid())
+                        {
+                         
+                         Input::file('image')->move('../storage/app');
+                         return view('up');
+
+                        }
+
+
+
+                     }
+
+
+                }
                 
             }
 

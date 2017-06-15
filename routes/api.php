@@ -25,7 +25,9 @@ use Illuminate\Http\Request;
 		Route::post('worker_retrieve','ApiController@worker_retrive');
 		Route::post('password_reset','ApiController@password_reset');
 		Route::post('search','ApiController@search');
-		
+		Route::post('rate','ApiController@rate');
+		Route::get('up',function (){return  view('up');});
+		Route::post('up1','ApiController@up');	
 		Route::post('yes',function (Request $request){
 
 			if($user=\Auth::guard('api')->user())
