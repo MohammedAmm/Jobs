@@ -30,7 +30,7 @@ use Illuminate\Http\Request;
 		
 
 
-
+		Route::post('category','ApiController@category');
 
 
 

@@ -23,7 +23,7 @@ class ApiController extends Controller
             
             $token =str_random(60);
 
-        $id=DB::table('users')->insertGetId(
+           $id=DB::table('users')->insertGetId(
 
         [
                 'api_token'=>$token
@@ -44,13 +44,17 @@ class ApiController extends Controller
                     ,'api_token'=>$token
                     ,'id'=>$id
 
+
                     ]]);
 
-        }
+        
+
+    
+                }
 
          catch (Exception $ex) {
             
-            return 'user registeration error';            
+            return 'error' ;            
         }
 
 
@@ -94,6 +98,7 @@ class ApiController extends Controller
                 ,'job_id'=>$job_id
                 ,'phone'=>$request->input('phone')
                 ,'address_id'=>$address_id
+                ,'wage'=>$request->input('wage')
                 ,'created_at'=>\Carbon\Carbon::now()
                 ,'updated_at'=>\Carbon\Carbon::now()
 
@@ -108,7 +113,8 @@ class ApiController extends Controller
                  return json_encode([
                     'worker'=>[
                     'name'=>$request->input('name')
-                    ,'api_token'=>$token,'id'=>$id
+                    ,'api_token'=>$token
+                    ,'id'=>$id
 
                     ]]);
 
@@ -385,8 +391,8 @@ class ApiController extends Controller
 
 
 
-                $job_id=DB::table('jobs')->where('name',$request->input('job_name'))->sharedlock()->value('id');
-                $address_id=DB::table('addresses')->where('name',$request->input('address_name'))->sharedlock()->value('id');
+                $job_id=DB::table('jobs')->where([['name',$request->input('job_name')]])->sharedlock()->value('id');
+                $address_id=DB::table('addresses')->where([['name',$request->input('address_name')]])->sharedlock()->value('id');
 
 
 
@@ -502,5 +508,19 @@ class ApiController extends Controller
                     }
                 
             }
+
+
+
+public function category(Request $request)
+        {   
+            $job_id=DB::table('jobs')->where([['name',$request->input('job_name')]])->sharedlock()->value('id');
+
+            return DB::table('workers')->where([['job_id',$job_id]])->sharedlock()->get();
+
+            return $job_id ;
+
+        }            
+
+
 
 }
