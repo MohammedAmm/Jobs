@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -20,13 +21,14 @@
         @else
         
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    {{ Auth::user()->name }}  <span class="caret"></span>
-                </a>
 
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                   <img src="{{Storage::url(Auth::user()->worker->avatar)}}" style="width:30px; height:30px; float:left; border-radius:50%; margin-right:25px;"> {{ Auth::user()->name }}  <span class="caret"></span>
+                </a>
+                    
                 <ul class="dropdown-menu" role="menu">
-                    <li>
-                      <a href="{{url('/profile')}}">Profile</a>
+                    <li>@if(Auth::user()->role_id==1)
+                      <a href="{{url('/myprofile')}}">Profile</a>@endif
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
@@ -36,6 +38,7 @@
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             {{ csrf_field() }}
                         </form>
+                    
                     </li>
                 </ul>
             </li>

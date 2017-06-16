@@ -125,6 +125,17 @@
 
                     <div class="">
                         <input type="phone" name="phone" class="form-control">
+                        <span class=
+                            "help-block"><strong id="register-errors-phone"></strong></span>
+                    </div>
+                </div>
+                 <div class="control-group">
+                    <label for="wage" class=" control-label">Wage</label>
+
+                    <div class="">
+                        <input type="wage" name="wage" class="form-control">
+                        <span class=
+                            "help-block"><strong id="register-errors-wage"></strong></span>
                     </div>
                 </div>
 
@@ -233,9 +244,13 @@
             $( '#register-errors-name' ).html( "" );
             $( '#register-errors-email' ).html( "" );
             $( '#register-errors-password' ).html( "" );
+            $( '#register-errors-phone' ).html( "" );
+            $( '#register-errors-wage' ).html( "" );
             $("#register-name").removeClass("has-error");
             $("#register-email").removeClass("has-error");
             $("#register-password").removeClass("has-error");
+            $("#register-phone").removeClass("has-error");
+            $("#register-wage").removeClass("has-error");
             $.ajax({
                 url:'/register',
                 type:'POST',
@@ -258,6 +273,14 @@
                     if(obj.password){
                         $("#register-password").addClass("has-error");
                         $( '#register-errors-password' ).html( obj.password );
+                    }
+                    if(obj.phone){
+                        $("#register-phone").addClass("has-error");
+                        $( '#register-errors-phone' ).html( obj.phone );
+                    }
+                    if(obj.wage){
+                        $("#register-wage").addClass("has-error");
+                        $( '#register-errors-wage' ).html( obj.wage );
                     }
                 }
             });

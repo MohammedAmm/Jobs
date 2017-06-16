@@ -12,11 +12,15 @@
 */
 
 Auth::routes();
+Route::get('changepassword','ProfileController@change_page');
+Route::post('/password/change','ProfileController@change_password');
+Route::get('/users/confirmation/{verifyToken}','Auth\RegisterController@confirmation')
+  	->name('confirmation');
 Route::get('/','HomeController@index');
 Route::post('/search','SearchController@search');
 Route::get('/search','HomeController@index');
 Route::get('/worker/{id}','ProfileController@show')->name('profile');
-Route::get('profile', 'ProfileController@profile');
+Route::get('myprofile', 'ProfileController@profile');
 Route::post('profile', 'ProfileController@update_info');
 Route::get('/results', function() {
     //

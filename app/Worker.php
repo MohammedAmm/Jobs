@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Worker extends Model
 {
     //
+    protected $primaryKey ='user_id';
+    protected $fillable = [
+     'job_id','avatar','phone','address_id','wage'    ];
+    
      public function user()
     {
         # code...

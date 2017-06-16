@@ -6,7 +6,7 @@
 		<br>
 		<br>
 		<br>
-		<h1 class="text-center">0{{$worker->phone}}</h1>
+		<h1 class="text-center">{{$worker->phone}}</h1>
 		<h2 class="text-center">Wage:{{$worker->wage}} EGP</h2>
 		<b>Rating</b>
 		{{$worker->averageRating()}} by <b>{{$worker->totalRatings()}} users</b>
@@ -23,6 +23,5 @@
 			</select>
 			{!! Form::submit('Submit', []) !!}
 			{!! Form::close() !!}		
-			mohamed
 		@endif
 @endsection

@@ -1,11 +1,11 @@
 <?php
 namespace Illuminate\Foundation\Auth;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\Events\Registered;
 use App\Address;
 use App\Job;
 use App\Role;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 trait RegistersUsers
 {
     use RedirectsUsers;
@@ -54,8 +54,4 @@ trait RegistersUsers
      * @param  mixed  $user
      * @return mixed
      */
-    protected function registered(Request $request, $user)
-    {
-        //
-    }
 }

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 class LoginController extends Controller
 {
     /*
@@ -32,6 +33,7 @@ class LoginController extends Controller
      *
      * @return void
      */
+    
     protected function sendFailedLoginResponse(Request $request)
     {
     if ($request->ajax()) {

@@ -13,16 +13,26 @@
   {!! Html::script('website/js/smoothscrolling.js')!!}
 </head>
 <body id="home" data-spy="scroll" data-target=".navbar" data-offset="150">
-
+  
 <!--Container (navbar) -->
-@include('partials._nav')
+  @include('partials._nav')
+
 <!-- Modal -->
-@include('partials._modal')
+  @include('partials._modal')
                 
     @if (Session::has('message'))
-     <div class="alert alert-info">{{ Session::get('message') }}</div>
-     @endif 
+     <div class="alert alert-danger" style="margin-top:150px;">{{ Session::get('message') }}</div>
+    @endif 
+    <!-- Message -->
+  @if(Session::has('flash_message'))
+      <div class="alert alert-success" style="margin-top:150px;">
+          {{ Session::get('flash_message') }}
+      </div>
+  @endif
 
+  @if (Session::has('m'))
+     <div class="alert alert-info" style="margin-top:150px;">{{ Session::get('m') }}</div>
+    @endif 
 @yield('content')
 
     <!-- <footer -->
