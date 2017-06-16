@@ -15,13 +15,13 @@ Content-Length: 46
 
 (not authenticated)
 
-POST /api/login HTTP/1.1
+POST /api/user_reg HTTP/1.1
 Host: 127.0.0.1:8000
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length:48
+Content-Length:73
 
-{"email":"ahmed@mail.com","password":"password"}
+{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}
 
 
 
@@ -103,4 +103,19 @@ workker_retrive_response
 password_reset_request
 
 {"old_pass":"password","new_pass":"npassword"}
+
+
+search_request
+
+{"job_name":"Plumber","address_name":"test","try":"2"}
+
+search_response
+
+#show him 
+
+
+rate_request
+{"worker_id":"2","rating":"5"}
+
+
 

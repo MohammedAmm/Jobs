@@ -47,8 +47,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+<<<<<<< HEAD
         if ($data['role_id']==1) {
             return Validator::make($data, [
+=======
+    
+        return Validator::make($data, [
+>>>>>>> master
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'role_id'=>'required|integer',
@@ -109,6 +114,7 @@ class RegisterController extends Controller
             ]);
         }
     }
+<<<<<<< HEAD
      protected function register(Request $request){
         $input=$request->all();
         $validator=$this->validator($input);
@@ -144,3 +150,6 @@ class RegisterController extends Controller
      return redirect('/')->with('m','Something went wrong');
      }
 }
+=======
+}
+>>>>>>> master

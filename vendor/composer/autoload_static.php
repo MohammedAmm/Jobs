@@ -300,6 +300,7 @@ class ComposerStaticInit90ef9ab146f34517ee7554a38c81b0a7
         'AddAdminProperty' => __DIR__ . '/../..' . '/database/migrations/2017_04_13_135959_add_admin_property.php',
         'AddApiTokenToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_203006_add_api_token_to_users.php',
         'AddJobAddressToWorker' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_142506_add_job_address_to_worker.php',
+        'AddRateToWorker' => __DIR__ . '/../..' . '/database/migrations/2017_06_14_012046_add_rate_to_worker.php',
         'AddRoleIdToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_03_02_233737_add_role_id_to_users.php',
         'AddVerficationToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_06_15_180448_add_verfication_to_users.php',
         'AddWageAvatarToWorkerTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_12_141641_add_wage_avatar_to_worker_table.php',

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+//use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Exception;
 use DB;
 
 class ApiController extends Controller
@@ -18,7 +23,7 @@ class ApiController extends Controller
             
             $token =str_random(60);
 
-        $id=DB::table('users')->insertGetId(
+           $id=DB::table('users')->insertGetId(
 
         [
                 'api_token'=>$token
@@ -39,13 +44,17 @@ class ApiController extends Controller
                     ,'api_token'=>$token
                     ,'id'=>$id
 
+
                     ]]);
 
-        }
+        
 
-         catch (\Exception $ex) {
+    
+                }
+
+         catch (Exception $ex) {
             
-            return 'user registeration error';            
+            return 'error' ;            
         }
 
 
@@ -89,6 +98,7 @@ class ApiController extends Controller
                 ,'job_id'=>$job_id
                 ,'phone'=>$request->input('phone')
                 ,'address_id'=>$address_id
+                ,'wage'=>$request->input('wage')
                 ,'created_at'=>\Carbon\Carbon::now()
                 ,'updated_at'=>\Carbon\Carbon::now()
 
@@ -103,7 +113,8 @@ class ApiController extends Controller
                  return json_encode([
                     'worker'=>[
                     'name'=>$request->input('name')
-                    ,'api_token'=>$token,'id'=>$id
+                    ,'api_token'=>$token
+                    ,'id'=>$id
 
                     ]]);
 
@@ -111,7 +122,7 @@ class ApiController extends Controller
             } 
 
 
-            catch (\Exception $e) 
+            catch (Exception $e) 
 
             {
                 DB::rollBack();
@@ -129,7 +140,7 @@ class ApiController extends Controller
              if($user=DB::table('users')->where('email',$request->input('email'))->sharedlock()->first())
              {
 
-                if (\Hash::check($request->input('password'),$user->password)) 
+                if (Hash::check($request->input('password'),$user->password)) 
                 {
                     return json_encode([
                         'user'=>[
@@ -157,7 +168,7 @@ class ApiController extends Controller
              
             
         }
-         catch (\Exception $e) 
+         catch (Exception $e) 
 
         {
             return 'login error' ;
@@ -169,7 +180,7 @@ class ApiController extends Controller
     {
         try 
         {
-            if ($user=\Auth::guard('api')->user())
+            if ($user=Auth::guard('api')->user())
             {
                 $job_id=DB::table('jobs')->where('name',$request->input('job'))->sharedlock()->value('id');    
                 $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
@@ -214,7 +225,7 @@ class ApiController extends Controller
             }    
         } 
         
-        catch (\Exception $e) 
+        catch (Exception $e) 
         {
             DB::rollBack();
             return 'worker update faild';
@@ -227,7 +238,7 @@ class ApiController extends Controller
     {
         try 
         {
-            if ($user=\Auth::guard('api')->user())
+            if ($user=Auth::guard('api')->user())
             {
                  DB::beginTransaction();
                  
@@ -262,7 +273,7 @@ class ApiController extends Controller
             }    
         } 
         
-        catch (\Exception $e) 
+        catch (Exception $e) 
         {
             DB::rollBack();
             return 'update faild';
@@ -275,7 +286,7 @@ class ApiController extends Controller
 
             try 
             {
-                            if($user=\Auth::guard('api')->user())
+                            if($user=Auth::guard('api')->user())
                 {
 
                 return json_encode([
@@ -294,7 +305,7 @@ class ApiController extends Controller
                 }
     
             } 
-            catch (\Exception $e) 
+            catch (Exception $e) 
             {
              
              return 'user retrive error' ;   
@@ -306,7 +317,7 @@ class ApiController extends Controller
             try 
             {
 
-                if($user=\Auth::guard('api')->user())
+                if($user=Auth::guard('api')->user())
                 {
 //{"worker":{"id":"4","name":"ahmed","email":"ahmed@mail.com","job":"Plumber","phone":"01115693438","address":"test"}}
                     $worker=DB::table('workers')->where('user_id',$user->id)->sharedlock()->first();
@@ -331,7 +342,7 @@ class ApiController extends Controller
                     return 'worker retrive error' ;
                 }
             }
-             catch (\Exception $e) 
+             catch (Exception $e) 
             {
                 
             }
@@ -341,9 +352,9 @@ class ApiController extends Controller
         {
             try 
             {
-              if($user=\Auth::guard('api')->user())
+              if($user=Auth::guard('api')->user())
               {
-                if (\Hash::check($request->input('old_pass'),$user->password))
+                if (Hash::check($request->input('old_pass'),$user->password))
                     
                  {
                     DB::table('users')->where('id',$user->id)->lockForUpdate()->update(['password'=>bcrypt($request->input('new_pass'))]);     
@@ -363,7 +374,7 @@ class ApiController extends Controller
                 return 'not authenticated';
               }  
             }
-            catch (\Exception $e) 
+            catch (Exception $e) 
             {
                 
             }
@@ -374,14 +385,14 @@ class ApiController extends Controller
                 try 
                 {
                  
-               if (\Auth::guard('api')->check())
+               if (Auth::guard('api')->check())
                 {
                        
 
 
 
-                $job_id=DB::table('jobs')->where('name',$request->input('job_name'))->sharedlock()->value('id');
-                $address_id=DB::table('addresses')->where('name',$request->input('address_name'))->sharedlock()->value('id');
+                $job_id=DB::table('jobs')->where([['name',$request->input('job_name')]])->sharedlock()->value('id');
+                $address_id=DB::table('addresses')->where([['name',$request->input('address_name')]])->sharedlock()->value('id');
 
 
 
@@ -397,10 +408,118 @@ class ApiController extends Controller
                 return 'Not authenticated' ;
                }
    
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                 return 'something went wrong' ;      
                 }
             }
+
+            public function rate(Request $request)
+            {
+                try 
+                {
+                                 if($user=Auth::guard('api')->user())
+
+                {
+                    if (DB::table('ratings')->where([['worker_id',$request->input('worker_id')],['user_id',$user->id]])) 
+                    {
+                     
+                        #update the existing record 
+
+                        DB::beginTransaction();
+                        DB::table('ratings')->where([['worker_id',$request->input('worker_id')],['user_id',$user->id]])->update(['rating'=>$request->input('rating')]);
+                        $rate=DB::table('ratings')->where([['worker_id',$request->input('worker_id')]])->avg('rating');
+                        DB::table('workers')->where([['user_id',$request->input('workder_id')]])->update(['rate'=>$rate]);
+
+                        DB::commit();
+                        return 'rate success' ;
+
+
+
+                    }
+
+                    else
+                    {
+
+                    DB::beginTransaction(); 
+                    DB::table('ratings')->insert(['worker_id'=>$request->input('worker_id'),'user_id'=>$user->id,'rating'=>$request->input('rating')]);
+                    $rate=DB::table('ratings')->where([['worker_id',$request->input('worker_id')]])->avg('rating');
+                    DB::table('workers')->where([['user_id',$request->input('workder_id')]])->update(['rate'=>$rate]);
+                    DB::commit();
+
+                    return 'rate success' ;
+
+                    }
+
+
+
+                }
+                else 
+                {
+
+                    return 'not authenticated';
+                }
+
+
+            }
+                    catch (Exception $e) 
+                {
+                    DB::rollBack();
+                return 'something wrong' ;    
+                }
+
+                } 
+
+
+
+
+                public function profileUp(Request $request)
+                {
+                    try 
+                    {
+                        if (!$user=Auth::guard('api')->user()) // correct this  
+                        {
+                                 
+                    if ($file=$request->file('image'))
+                     {
+                        if ($request->file('image')->isValid())
+                        {
+                         
+                         $file=Storage::put('profile',$file) ;
+
+                         
+                         
+                        return redirect('uploads/'.$file)  ;
+
+
+
+                     }
+
+                        }
+                }                      
+                       else 
+                       {
+                        return 'not authenticated' ;
+                       } 
+                               
+                    } 
+                    catch (Exception $e) 
+                    {
+                        return 'error' ;    
+                    }
+                
+            }
+
+
+
+public function category(Request $request)
+        {   
+            $job_id=DB::table('jobs')->where([['name',$request->input('job_name')]])->sharedlock()->value('id');
+
+            return DB::table('workers')->where([['job_id',$job_id]])->sharedlock()->get();
+
+            return $job_id ;
+
+        }            
 
 
 

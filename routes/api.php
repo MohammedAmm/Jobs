@@ -25,8 +25,20 @@ use Illuminate\Http\Request;
 		Route::post('worker_retrieve','ApiController@worker_retrive');
 		Route::post('password_reset','ApiController@password_reset');
 		Route::post('search','ApiController@search');
+		Route::post('rate','ApiController@rate');
+		Route::post('profileUp','ApiController@profileUp');	
 		
-		Route::post('yes',function (Request $request){
+
+
+		Route::post('category','ApiController@category');
+
+
+
+
+		Route::get('up',function (){return  view('up');});   //just for test 
+		
+
+		Route::post('yes',function (Request $request){  // just for test 
 
 			if($user=\Auth::guard('api')->user())
 			{		
@@ -48,7 +60,7 @@ use Illuminate\Http\Request;
 		});
 
 
-		Route::get('ts',function (Request $request)
+		Route::get('ts',function (Request $request)  // just for test 
 		{
 return json_encode(DB::table('workers')->where([['job_id',$request->input('job_id')],['address_id',$request->input('address_id')]])->sharedlock()->skip($request->input('try')*10)->take(10)->get());
 		});
