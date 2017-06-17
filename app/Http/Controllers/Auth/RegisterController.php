@@ -32,8 +32,7 @@ class RegisterController extends Controller
     /**
      * Create a new controller instance.
      *
-     * 6+++++++++++
-     .0return void
+     * 
      */
     public function __construct()
     {
@@ -68,8 +67,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data00.............
-     3*
+     * @param  array 
      * @return User
      */
     protected function create(array $data)
@@ -111,9 +109,8 @@ class RegisterController extends Controller
     }
      protected function register(Request $request){
         $input=$request->all();
-               $this->validator($input)->validate();
-
-        if($validator->passes()){
+        $this->validator($input)->validate();
+        if($this->validator($input)->passes()){
             $data=$this->create($input)->toArray();
             $data['verifyToken']=str_random(25);
 
@@ -126,7 +123,7 @@ class RegisterController extends Controller
                 $message->subject('Registeration Confirmation');
 
             });
-            return redirect('/')->with('m','Confirmation email has been send,please check your email.');
+            return redirect()->back()->with('m','Confirmation email has been send,please check your email.');
         }
 
      }
