@@ -15,7 +15,7 @@ class AddAdminProperty extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->tinyInteger('admin')->after('role_id');
+            $table->tinyInteger('admin')->after('role_id')->default(0);
         });
     }
 

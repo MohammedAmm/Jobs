@@ -17,7 +17,7 @@ class AddVerficationToUsers extends Migration
             //
             $table->string('verifyToken')
                 ->after('admin')
-                ->nullable();
+                ->nullable()->unique();
             $table->tinyInteger('verified')
                 ->after('verifyToken')
                 ->default('0');
