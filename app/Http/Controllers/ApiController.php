@@ -484,7 +484,7 @@ class ApiController extends Controller
                         if ($request->file('image')->isValid())
                         {
                          
-                         $file=Storage::put('profile',$file) ;
+                         $file=Storage::put('avatars',$file) ;
 
                          
                          
