@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Exception;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\api_confirmation;
-
+use Carbon\Carbon;
 use DB;
 
 class ApiController extends Controller
@@ -34,8 +34,8 @@ class ApiController extends Controller
                 ,'email' => $request->input('email')
                 ,'role_id' => 2
                 ,'password' => bcrypt($request->input('password'))
-                ,'created_at'=>\Carbon\Carbon::now()
-                ,'updated_at'=>\Carbon\Carbon::now()
+                ,'created_at'=>Carbon::now()
+                ,'updated_at'=>Carbon::now()
 
             ]);
 
@@ -81,8 +81,8 @@ class ApiController extends Controller
                 ,'email' => $request->input('email')
                 ,'role_id' => 1
                 ,'password' => bcrypt($request->input('password'))
-                ,'created_at'=>\Carbon\Carbon::now()
-                ,'updated_at'=>\Carbon\Carbon::now()
+                ,'created_at'=>Carbon::now()
+                ,'updated_at'=>Carbon::now()
 
             ]);
 
@@ -102,8 +102,8 @@ class ApiController extends Controller
                 ,'phone'=>$request->input('phone')
                 ,'address_id'=>$address_id
                 ,'wage'=>$request->input('wage')
-                ,'created_at'=>\Carbon\Carbon::now()
-                ,'updated_at'=>\Carbon\Carbon::now()
+                ,'created_at'=>Carbon::now()
+                ,'updated_at'=>Carbon::now()
 
                 ]);
 
@@ -195,7 +195,7 @@ class ApiController extends Controller
                  DB::table('users')->where('api_token',$user->api_token)->lockForUpdate()->update([
                     'name'=>$request->input('name')
                    ,'email'=>$request->input('email')
-                   ,'updated_at'=>\Carbon\Carbon::now()
+                   ,'updated_at'=>Carbon::now()
 
                          ]);
 
@@ -204,7 +204,7 @@ class ApiController extends Controller
                     'job_id'=>$job_id
                     ,'phone'=>$request->input('phone')
                     ,'address_id'=>$address_id
-                    ,'updated_at'=>\Carbon\Carbon::now()
+                    ,'updated_at'=>Carbon::now()
 
                     ]);
                 DB::commit() ;
@@ -253,7 +253,7 @@ class ApiController extends Controller
                  DB::table('users')->where('api_token',$user->api_token)->lockForUpdate()->update([
                     'name'=>$request->input('name')
                    ,'email'=>$request->input('email')
-                   ,'updated_at'=>\Carbon\Carbon::now()
+                   ,'updated_at'=>Carbon::now()
 
                          ]);
 
@@ -527,9 +527,12 @@ public function category(Request $request)
 
 public function test1()
 {               
-                    
-                Mail::to('ali@mail.com')->send(new api_Confirmation('80L8WF2KYwQMTQz5XigHTDWA'));
 
+                $verifyToken=DB::table('users')->where([['verifyToken','80L8WF2KYwQMTQz5XigHTDWA']])->value('verifyToken');
+
+
+                Mail::to('ali@mail.com')->send(new api_Confirmation($verifyToken));
+                return Carbon::now() ;
 }
 
 

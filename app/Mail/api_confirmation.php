@@ -32,6 +32,6 @@ class api_confirmation extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.apiconfirmation');
+        return $this->view('emails.apiconfirmation')->from('me@mail.com');
     }
 }
