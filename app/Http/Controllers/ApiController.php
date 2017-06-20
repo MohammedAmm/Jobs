@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Storage;
 //use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Exception;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\api_confirmation;
+
 use DB;
 
 class ApiController extends Controller
@@ -521,6 +524,13 @@ public function category(Request $request)
 
         }            
 
+
+public function test1()
+{               
+                    
+                Mail::to('ali@mail.com')->send(new api_Confirmation('80L8WF2KYwQMTQz5XigHTDWA'));
+
+}
 
 
 }

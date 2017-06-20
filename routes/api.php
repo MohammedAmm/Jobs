@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,42 +28,49 @@ use Illuminate\Http\Request;
 		Route::post('search','ApiController@search');
 		Route::post('rate','ApiController@rate');
 		Route::post('profileUp','ApiController@profileUp');	
-		
-
-
 		Route::post('category','ApiController@category');
 
 
 
 
-		Route::get('up',function (){return  view('up');});   //just for test 
 		
-
-		Route::post('yes',function (Request $request){  // just for test 
-
-			if($user=\Auth::guard('api')->user())
-			{		
-				
-				 
-					// return 	json_encode(['user'=>['name'=>$request->input('user.name'),'email'=>$request->input('user.email')]]);
-					// return $request->header('Authorization');
-				return $user->name ; 
-
-			}
-			else
-			{
-
-				return  'not authenticated'; 
-
-			}
-
-
-		});
 
 
 		Route::get('ts',function (Request $request)  // just for test 
 		{
 return json_encode(DB::table('workers')->where([['job_id',$request->input('job_id')],['address_id',$request->input('address_id')]])->sharedlock()->skip($request->input('try')*10)->take(10)->get());
 		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     	
+    			Route::get('up','ApiController@test1');   //just for test 
+
     	
