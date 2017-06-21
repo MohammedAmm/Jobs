@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Exception;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\api_confirmation;
+use App\Mail\Successful_Registeration;
 use Carbon\Carbon;
 use DB;
 
@@ -111,7 +111,7 @@ class ApiController extends Controller
 
 
         DB::commit();
-           
+           Mail::to($request->input('email'))->send(new Successful_Registeration());
             
                  return json_encode([
                     'worker'=>[
@@ -515,13 +515,19 @@ class ApiController extends Controller
 
 
 public function category(Request $request)
-        {   
-            $job_id=DB::table('jobs')->where([['name',$request->input('job_name')]])->sharedlock()->value('id');
+        {       
+            // $job_id=DB::table('jobs')->where([['name',$request->input('job_name')]])->sharedlock()->value('id');
+            // $result=DB::table('workers')->where([['job_id',$job_id]])->sharedlock()->get();
+            
+            // $json_result=$result->toJson(JSON_FORCE_OBJECT);
 
-            return DB::table('workers')->where([['job_id',$job_id]])->sharedlock()->get();
+            // return response($json_result, 200, ["Content-Type" => "application/json"]);
+            // return $job_id ;
+            
+            // $result=DB::table('users')->select(['id','name','avatar','phone','wage','rate','address_id'])->join('workers','users.id','=','workers.user_id')->where([['job_id',$job_id]])->get();
 
-            return $job_id ;
-
+            // return response($result,200); 
+            return response('ammar',200);
         }            
 
 
@@ -531,7 +537,7 @@ public function test1()
                 $verifyToken=DB::table('users')->where([['verifyToken','80L8WF2KYwQMTQz5XigHTDWA']])->value('verifyToken');
 
 
-                Mail::to('ali@mail.com')->send(new api_Confirmation($verifyToken));
+                Mail::to('ali@mail.com')->send(new Successful_Registeration());
                 return Carbon::now() ;
 }
 

@@ -15,13 +15,13 @@ Content-Length: 46
 
 (not authenticated)
 
-POST /api/user_reg HTTP/1.1
+GET /api/category HTTP/1.1
 Host: 127.0.0.1:8000
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length:73
+Content-Length:24
 
-{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}
+{"job_name":"carpenter"}
 
 
 
