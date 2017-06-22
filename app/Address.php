@@ -13,4 +13,7 @@ class Address extends Model
     	# code...
     	return $this->belongsTo('App\Worker');
     }
+    public function city(){
+        return $this->belongsTo('App\City');
+    }
 }

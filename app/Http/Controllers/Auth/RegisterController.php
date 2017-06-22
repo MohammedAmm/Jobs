@@ -32,8 +32,7 @@ class RegisterController extends Controller
     /**
      * Create a new controller instance.
      *
-     * 6+++++++++++
-     .0return void
+     * 
      */
     public function __construct()
     {
@@ -47,17 +46,12 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-<<<<<<< HEAD
         if ($data['role_id']==1) {
-            return Validator::make($data, [
-=======
-    
         return Validator::make($data, [
->>>>>>> master
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'role_id'=>'required|integer',
-            'phone'=>'required|regex:/(01)[0-9]{9}/',
+            'phone'=>'required|regex:/(01)[0-9]{9}/|unique:workers',
             'wage'=>'required|integer',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -73,8 +67,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data00.............
-     3*
+     * @param  array 
      * @return User
      */
     protected function create(array $data)
@@ -94,7 +87,7 @@ class RegisterController extends Controller
             $worker->user_id=$user_id;
             $worker->job_id=$data['job_id'];
             $worker->phone=(string)$data['phone'];
-            $worker->avatar='default.png';
+            $worker->avatar='public/avatars/default.png';
             $worker->wage=$data['wage'];
             $worker->address_id=$data['address_id'];
             $worker->save();
@@ -114,12 +107,10 @@ class RegisterController extends Controller
             ]);
         }
     }
-<<<<<<< HEAD
      protected function register(Request $request){
         $input=$request->all();
-        $validator=$this->validator($input);
-
-        if($validator->passes()){
+        $this->validator($input)->validate();
+        if($this->validator($input)->passes()){
             $data=$this->create($input)->toArray();
             $data['verifyToken']=str_random(25);
 
@@ -132,9 +123,9 @@ class RegisterController extends Controller
                 $message->subject('Registeration Confirmation');
 
             });
-            return redirect('/')->with('m','Confirmation email has been send,please check your email.');
+            return redirect()->back()->with('m','Confirmation email has been send,please check your email.');
         }
-        return redirect('/')->with('m',$validator->errors);
+
      }
      public function confirmation($verifyToken){
         $user=User::where('verifyToken',$verifyToken)->first();
@@ -150,6 +141,5 @@ class RegisterController extends Controller
      return redirect('/')->with('m','Something went wrong');
      }
 }
-=======
-}
->>>>>>> master
+
+

@@ -7,6 +7,10 @@
 	]) !!}
 		{!! Form::label('name', 'Name:') !!}
 		{!! Form::text('name', null, ['class'=>'form-control']) !!}
+        <br>
+		{!!Form::select('city_id',$cities,$address->city_id,[])!!}
+		<br>
+		<br>
 		{!! Form::submit('Submit', ['class'=>'btn btn-warning']) !!}
 	{!! Form::close() !!}
 @endsection

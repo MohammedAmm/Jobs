@@ -77,7 +77,7 @@
 
                 <div class="">
                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus><span class=
-                            "help-block"><strong id="register-errors-name"></strong></span> <span class="help-block small">Your name</span>
+                            "help-block"><strong id="register-errors-name"></strong></span>
                 </div>
             </div>
 
@@ -85,8 +85,7 @@
                 <label for="email" class=" control-label">E-Mail Address</label>
 
                 <div class="">
-                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required><span class="help-block"><strong id="register-errors-email"></strong></span> <span class=
-                            "help-block small">Your email</span>
+                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required><span class="help-block"><strong id="register-errors-email"></strong></span>
                 </div>
             </div>
 
@@ -98,7 +97,6 @@
                     <select name="role_id" class="form-control" id="my_role">
                         @foreach(\App\Role::all() as $role)
                         <option value='{{$role->id}}'>{{$role->name}}</option>
-
                         @endforeach
                     </select>
 
@@ -113,7 +111,6 @@
                         <select name="job_id" class="form-control">
                             @foreach(\App\Job::all() as $job)
                                 <option value='{{$job->id}}'>{{$job->name}}</option>
-
                             @endforeach
                         </select>
 
@@ -144,13 +141,17 @@
 
                     <div class="">
                         <select name="address_id" class="form-control">
-                            @foreach(\App\Address::all() as $address)
-                                <option value='{{$address->id}}'>{{$address->name}}</option>
-
-                            @endforeach
-                        </select>
-
-                    
+                             {{$make=0}}
+                            @foreach(\App\Address::orderBy('city_id','asc')->get() as $address)
+                                <?php
+                               if(!($make==$address->city_id)){
+                                $make=$address->city_id;
+                                echo '<optgroup style="font-size:10px;" label='.$address->city->city.'></optgroup>';    
+                               }
+                               ?>
+                                <option value='{{$address->id}}'>{{$address->name}}</option>                               
+                            @endforeach                          
+                        </select>        
                     </div>
                 </div>
             </div>

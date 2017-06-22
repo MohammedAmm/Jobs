@@ -30,10 +30,10 @@
       </div>
   @endif
 
-  @if (Session::has('m'))
-     <div class="alert alert-info" style="margin-top:150px;">{{ Session::get('m') }}</div>
-    @endif 
-@yield('content')
+     @if (Session::has('m'))
+     <div class="alert alert-info" style="margin-top:100px;">{{ Session::get('m') }}</div>
+     @endif 
+    @yield('content')
 
     <!-- <footer -->
     <footer class="container-fluid text-center">

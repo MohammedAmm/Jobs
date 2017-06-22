@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Address;
 use App\City;
-class AddressController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,8 @@ class AddressController extends Controller
     public function index()
     {
         //
-        
-        $addresses=Address::all();
-        return view('admin.addresses.index')->withaddresses($addresses);
+        $cities=City::all();
+        return view('admin.cities.index')->withCities($cities);
     }
 
     /**
@@ -28,13 +26,7 @@ class AddressController extends Controller
     public function create()
     {
         //
-        $cis=City::all();
-        $cities=[];
-        foreach ($cis as $ci) {
-            # code...
-            $cities[$ci->id]=$ci->city;
-        }
-        return view('admin.addresses.create')->withCities($cities);
+         return view('admin.cities.create');
     }
 
     /**
@@ -46,12 +38,9 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         //
-        $address=new Address;
-        $address->city_id=$request->city_id;
-        $address->name=$request->name;
-        
-        $address->save();
-
+        $cit=new City;
+        $cit->city=$request->city;
+        $cit->save();
         return redirect('adminpanel/addresses');
     }
 
@@ -76,16 +65,8 @@ class AddressController extends Controller
     public function edit($id)
     {
         //
-        $cis=City::all();
-        $cities=[];
-        foreach ($cis as $ci) {
-            # code...
-            $cities[$ci->id]=$ci->city;
-        }
-        $address=address::find($id);
-        return view('admin.addresses.edit')
-        ->withCities($cities)
-        ->withaddress($address);
+        $cit=City::find($id);
+        return view('admin.cities.edit')->withCit($cit);
     }
 
     /**
@@ -98,13 +79,10 @@ class AddressController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $address=Address::findOrFail($id);
-        $address->city_id=$request->city_id;
-        $address->name=$request->name;
-
-        $address->save();
-
-        return redirect('adminpanel/addresses');
+        $cit=City::findOrFail($id);
+        $cit->city=$request->city;
+        $cit->save();
+        return redirect('adminpanel/cities');
     }
 
     /**
@@ -116,9 +94,8 @@ class AddressController extends Controller
     public function destroy($id)
     {
         //
-        $address=Address::findOrFail($id);
-        $address->delete();
-                return redirect('adminpanel/addresses');
-
+        $city=City::findOrFail($id);
+        $city->delete();
+        return redirect('adminpanel/cities');
     }
 }
