@@ -33,12 +33,14 @@ class ApiController extends Controller
                 ,'name' => $request->input('name')
                 ,'email' => $request->input('email')
                 ,'role_id' => 2
+                ,'verified'=>1
                 ,'password' => bcrypt($request->input('password'))
                 ,'created_at'=>Carbon::now()
                 ,'updated_at'=>Carbon::now()
 
             ]);
 
+                Mail::to($request->input('email'))->send(new Successful_Registeration());
 
 
                 return json_encode([
@@ -80,6 +82,7 @@ class ApiController extends Controller
                 ,'name' => $request->input('name')
                 ,'email' => $request->input('email')
                 ,'role_id' => 1
+                ,'verified'=>1
                 ,'password' => bcrypt($request->input('password'))
                 ,'created_at'=>Carbon::now()
                 ,'updated_at'=>Carbon::now()
