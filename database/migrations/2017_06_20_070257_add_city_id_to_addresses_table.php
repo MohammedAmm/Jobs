@@ -15,7 +15,7 @@ class AddCityIdToAddressesTable extends Migration
     {
         Schema::table('addresses', function (Blueprint $table) {
             //
-            $table->integer('city_id')
+            $table->unsignedInteger('city_id')
             ->after('id');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
