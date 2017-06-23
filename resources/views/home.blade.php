@@ -1,24 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="jumbotron text-center searchsection" style="margin-top: 80px;">
+<div class="jumbotron text-center searchsection">
 <h1>Company Name</h1>
 <br> 
-<form action="/search" method="POST">
+<form class="form-inline center-mob" action="/search" method="POST">
 		{{csrf_field()}}
-		<select name="nam" class="btn-lg">
-			@foreach($jobs as $nam)
-				<option value="{{$nam->id}}">{{$nam->name}}</option>
-			@endforeach
-		</select>
-		<select name="adr" class="btn-lg">
-			@foreach($addresses as $adr)
-				<option value="{{$adr->id}}">{{$adr->name}}</option>
-			@endforeach
-		</select>
-		<button type="submit" class="btn btn-lg btn-primary">Search</button>
-	
-</form>
+    <div class="input-group form-group-lg">
+      <select class="form-control" id="sel1">
+        <option value="" selected disabled>Your Governate</option>
+ 				@foreach($cities as $cit)
+					<option value="{{$cit->id}}">{{$cit->city}}</option>
+				@endforeach
+      </select>
+      <select class="form-control" id="sel2" name="adr">
+        <option value="" selected disabled>Your Area</option>
+              </select>
+      <select class="form-control" id="sel3" name="nam">
+        <option value="" selected disabled>Type of Handyworker</option>
+        @foreach($jobs as $nam)
+						<option value="{{$nam->id}}">{{$nam->name}}</option>
+				@endforeach
+      </select>
+      <div class="input-group-btn">
+        <button type="submit" class="btn btn-lg" id="srch">Search</button>
+      </div>
+    </div>
+ </form>
+ 
+	</div>
+
 </div>
 <!-- Container (Services Section) -->
 <div id="services" class="container-fluid text-center services">
@@ -108,4 +119,31 @@
 	</div>
 </div>
 
+
+<script>
+       $('#sel1').on('change',function(){
+				 $.ajax({
+					 url:'/addresses',
+					 type:'get',
+					 dataType:"json",
+					 data:{
+						 'id':$('#sel1').val()
+					 },
+					 success:function (data) {
+						 $('#sel2').children().remove();
+						 var addresses=data[0];
+						 for (var i = 0; i < addresses.length; i++) {
+							 var address = addresses[i];
+							  $('<option/>',{
+							 value:address.id,
+							 text:address.name,
+							 id:'removeMe',
+						 }).appendTo('#sel2');				 
+						 }
+						//  $('#sel2').removeClass('hidden');
+
+					 }
+				 });
+        });
+    </script>
 @endsection

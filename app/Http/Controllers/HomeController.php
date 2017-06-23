@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
+use App\City;
 use App\Job;
-use App\Address;
+
 class HomeController extends Controller
 {
     /**
@@ -19,10 +21,20 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $cities=City::all();
         $jobs=Job::all();
-        $addresses=Address::all();
         return view('home')
-            ->withJobs($jobs)
-            ->withAddresses($addresses);
+            ->withCities($cities)
+            ->withJobs($jobs);
     }
+    public function get_addresses(Request $request){
+        
+        $id=$request->id;
+        $city=City::find($id);
+        $addresses=$city->addresses;
+        return response()->json([
+        $addresses]);
+    
+     }
 }
+

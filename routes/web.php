@@ -18,7 +18,7 @@ Route::get('/users/confirmation/{verifyToken}','Auth\RegisterController@confirma
   	->name('confirmation');
 Route::get('/','HomeController@index');
 Route::post('/search','SearchController@search');
-Route::get('/search','HomeController@index');
+Route::get('/search','SearchController@search');
 Route::get('/worker/{id}','ProfileController@show')->name('profile');
 Route::get('myprofile', 'ProfileController@profile');
 Route::post('profile', 'ProfileController@update_info');
@@ -26,6 +26,7 @@ Route::get('/results', function() {
     //
     return view('results');
 });
+Route::get('/addresses','HomeController@get_addresses');
 Route::get('/home', 'HomeController@index');
 Route::resource('ratings', 'RatingController');
 Route::group(['middleware'=>'admin'],function()
@@ -34,6 +35,7 @@ Route::group(['middleware'=>'admin'],function()
 	Route::get('/adminpanel','AdminController@index');
 	Route::resource('/adminpanel/users','UsersController');
 	Route::resource('/adminpanel/jobs','JobController');
+	Route::resource('/adminpanel/cities','CityController');	
 	Route::resource('/adminpanel/addresses','AddressController');
 
 

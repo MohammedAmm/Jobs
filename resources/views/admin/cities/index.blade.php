@@ -1,33 +1,32 @@
 @extends('admin.layouts.app')
-@section('title','addresss')
+@section('title','cities')
 @section('content')
 	<div class="well">
 	<table class="table table-striped">
 		<thead>
 			<tr>
-			<th>addresses</th>
-			<th>city</th>
+			<th>Cities</th>
+			<th></th>
 			<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 
-			@foreach($addresses as $address)
+			@foreach($cities as $cit)
 				<div class="row">
 				<div class="col-md-6">
-				<td>{{$address->name}}</td>
-				<td>{{$address->city->city}}</td>
+				<td>{{$cit->city}}</td>
 				<td>
 					
-					<a href="{{route('addresses.edit',$address->id)}}" class="btn btn-warning pull-right">Edit</a>
+					<a href="{{route('cities.edit',$cit->id)}}" class="btn btn-warning pull-right">Edit</a>
 					</td>
 					</div>
 					<td>
 					<div class="col-md-6 ">
 			 			{!! Form::open([
 				            'method' => 'DELETE',
-				            'route' => ['addresses.destroy', $address->id]
+				            'route' => ['cities.destroy', $cit->id]
 				        ]) !!}
 			            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
 			        {!! Form::close() !!}				
@@ -39,7 +38,7 @@
 		@endforeach
 		</tbody>	
 	</table>
-	<a href="{{route('addresses.create')}}" class="btn btn-success pull-right">Add New address</a>
+	<a href="{{route('cities.create')}}" class="btn btn-success pull-right">Add New Cities</a>
 	<br>
 	</div>
 @endsection

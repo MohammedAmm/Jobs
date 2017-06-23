@@ -20,7 +20,7 @@ class ProfileController extends Controller
             # code...
             $jbs[$job->id]=$job->name;
         }
-        $addresses=Address::all();
+        $addresses=Address::all();    
         $ads=[];
         foreach ($addresses as $address) {
             # code...
