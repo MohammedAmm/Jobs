@@ -113,7 +113,7 @@ class ApiController extends Controller
 
 
         DB::commit();
-           Mail::to($request->input('email'))->send(new Successful_Registeration());
+           Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation'));
             
                  return json_encode([
                     'worker'=>[
