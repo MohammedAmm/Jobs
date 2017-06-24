@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Exception;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Successful_Registeration;
+use App\Mail\HERFA;
 use Carbon\Carbon;
 use DB;
 
@@ -40,7 +40,7 @@ class ApiController extends Controller
 
             ]);
 
-                Mail::to($request->input('email'))->send(new Successful_Registeration());
+                Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation'));
 
 
                 return json_encode([
@@ -93,7 +93,6 @@ class ApiController extends Controller
              $job_id=DB::table('jobs')->where('name',$request->input('job'))->sharedlock()->value('id');    
              $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
           
-
 
             DB::table('workers')->insert(
 
