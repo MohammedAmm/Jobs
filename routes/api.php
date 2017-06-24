@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 */
 
-    	Route::post('user_reg','ApiController@user_reg');
+    	Route::get('user_reg','ApiController@user_reg');
 			
     	Route::post('worker_reg','ApiController@worker_reg');
 		Route::post('login','ApiController@login');	

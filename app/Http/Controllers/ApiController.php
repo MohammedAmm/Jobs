@@ -24,7 +24,7 @@ class ApiController extends Controller
         
         try {
             
-            $token =str_random(60);
+            $token ='Bearer '.str_random(60);
 
            $id=DB::table('users')->insertGetId(
 
@@ -73,8 +73,8 @@ class ApiController extends Controller
             {
                       
              
-             $token =str_random(60);                       
-             DB::beginTransaction();
+             $token ='Bearer '.str_random(60);                       
+             DB::beginTransacotion();
                 $id=DB::table('users')->insertGetId(
 
         [
@@ -112,7 +112,7 @@ class ApiController extends Controller
 
 
 
-        DB::commit();
+           DB::commit();
            Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation'));
             
                  return json_encode([
