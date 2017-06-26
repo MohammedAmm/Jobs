@@ -17,9 +17,11 @@ class HERFA extends Mailable
      * @return void
      */
     public $template ;
-    public function __construct($template)
+    public $subject ;
+    public function __construct($template,$subject)
     {
         $this->template=$template ;
+        $this->subject=$subject;
     }
 
     /**
@@ -29,6 +31,6 @@ class HERFA extends Mailable
      */
     public function build()
     {
-        return $this->view($this->template);
+        return $this->view($this->template)->subject($this->subject);
     }
 }

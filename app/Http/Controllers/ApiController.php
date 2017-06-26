@@ -18,9 +18,6 @@ class ApiController extends Controller
      public function user_reg(Request $request)
     {
     	
-
-           
-
         
         try {
             
@@ -74,7 +71,7 @@ class ApiController extends Controller
                       
              
              $token ='Bearer '.str_random(60);                       
-             DB::beginTransacotion();
+             DB::beginTransaction();
                 $id=DB::table('users')->insertGetId(
 
         [
@@ -113,8 +110,11 @@ class ApiController extends Controller
 
 
            DB::commit();
-           Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation'));
+           Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation','HERFA'));
             
+         
+
+
                  return json_encode([
                     'worker'=>[
                     'name'=>$request->input('name')
@@ -146,15 +146,45 @@ class ApiController extends Controller
              {
 
                 if (Hash::check($request->input('password'),$user->password)) 
-                {
-                    return json_encode([
-                        'user'=>[
-                        'id'=>$user->id
-                        ,'api_token'=>$user->api_token
-                        ,'name'=>$user->name
-                        ,'role_id'=>$user->role_id
+                { 
+                    if($user->role_id==1)
+                    {
 
-                        ]]);
+                        $worker=DB::table('workers')->where('user_id',$user->id)->sharedlock()->first();
+                        $job=DB::table('jobs')->where('id',$worker->job_id)->sharedlock()->value('name');
+                        $address=DB::table('addresses')->where('id',$worker->address_id)->sharedlock()->value('name');
+                        $result=json_encode([
+                            'role_id'=>1
+                            ,'api_token'=>$user->api_token
+                            ,'name'=>$user->name
+                            ,'job'=>$job
+                            ,'avatar'=>$worker->avatar
+                            ,'phone'=>$worker->phone
+                            ,'address'=>$address
+                            ,'wage'=>$worker->wage
+                            ,'id'=>$user->id
+                            ]);
+
+                            return  response($result,200);
+                    }
+                    else
+                    {
+                        $result=json_encode([
+                            'role_id'=>2
+                            ,'api_token'=>$user->api_token
+                            ,'name'=>$user->name
+                            ,'id'=>$user->id
+
+                            ]);
+
+                        return response($result,200) ;
+                            
+
+
+                    }
+
+
+
                 }
                 else 
                 {
