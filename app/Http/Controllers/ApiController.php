@@ -12,12 +12,33 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\HERFA;
 use Carbon\Carbon;
 use DB;
-
+use Validator ;
 class ApiController extends Controller
 {
      public function user_reg(Request $request)
     {
     	
+
+
+        
+
+            $validation=Validator::make($request->all(),[
+            
+            'name'=>'required|alpha_dash|max:30'
+            ,'email'=>'required|email|unique:users,email|max:30'
+            ,'password'=>'required|max:30'
+            ]);
+
+            if ($validation->fails()) 
+
+            {
+                
+                return response($validation->errors(),444);
+
+            }
+
+
+
         
         try {
             
@@ -40,15 +61,15 @@ class ApiController extends Controller
                 Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation','HERFA'));
 
 
-                 $result=json_encode([
+                 
+                 return response(json_encode([
                     'user'=>[
                     'name'=>$request->input('name')
                     ,'api_token'=>$token
                     ,'id'=>$id
 
 
-                    ]]);
-                 return response($result,200) ;
+                    ]]),200) ;
         
 
     
@@ -56,7 +77,7 @@ class ApiController extends Controller
 
          catch (Exception $ex) {
             
-            return 'error' ;            
+            return response('error occured',503) ;            
         }
 
 
