@@ -40,7 +40,7 @@ class ApiController extends Controller
                 Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation','HERFA'));
 
 
-                return json_encode([
+                 $result=json_encode([
                     'user'=>[
                     'name'=>$request->input('name')
                     ,'api_token'=>$token
@@ -48,7 +48,7 @@ class ApiController extends Controller
 
 
                     ]]);
-
+                 return response($result,200) ;
         
 
     
