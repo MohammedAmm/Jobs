@@ -37,7 +37,7 @@ class ApiController extends Controller
 
             ]);
 
-                Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation'));
+                Mail::to($request->input('email'))->send(new HERFA('emails.apiconfirmation','HERFA'));
 
 
                 return json_encode([
