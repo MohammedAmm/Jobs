@@ -34,15 +34,18 @@ use Illuminate\Http\Request;
 
 
 		
+// just for test
 
-
-		Route::get('ts',function (Request $request)  // just for test 
+		Route::get('ts',function (Request $request)   
 		{
 return json_encode(DB::table('workers')->where([['job_id',$request->input('job_id')],['address_id',$request->input('address_id')]])->sharedlock()->skip($request->input('try')*10)->take(10)->get());
 		});
 
 
 
+    	Route::get('worker_reg','ApiController@worker_reg');
+    	Route::get('user_reg','ApiController@user_reg');
+		Route::get('login','ApiController@login');	
 
 
 
@@ -71,6 +74,5 @@ return json_encode(DB::table('workers')->where([['job_id',$request->input('job_i
 
 
     	
-    			Route::get('up','ApiController@test1');   //just for test 
 
     	
