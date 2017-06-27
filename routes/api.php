@@ -42,12 +42,7 @@ return json_encode(DB::table('workers')->where([['job_id',$request->input('job_i
 		});
 
 
-
-    	Route::get('worker_reg','ApiController@worker_reg');
-    	Route::get('user_reg','ApiController@user_reg');
-		Route::get('login','ApiController@login');	
-
-
+		Route::any('test','ApiController@test');
 
 
 

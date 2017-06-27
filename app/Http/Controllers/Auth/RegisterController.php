@@ -74,7 +74,7 @@ class RegisterController extends Controller
     {
         if($data['role_id']==1) {
             $user=new User([
-                'api_token'=>'Bearer '.str_random(60),
+                'api_token'=>str_random(60),
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'admin' => 0,
@@ -99,7 +99,7 @@ class RegisterController extends Controller
             # code...
         {
             return User::create([
-                'api_token'=>'Bearer '.str_random(60),    
+                'api_token'=>str_random(60),    
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'admin' => 0,
