@@ -16,19 +16,19 @@ use Illuminate\Http\Request;
 
 */
 
-    	Route::post('user_reg','ApiController@user_reg');
+    	Route::any('user_reg','ApiController@user_reg');  //post
 			
-    	Route::post('worker_reg','ApiController@worker_reg');
-		Route::post('login','ApiController@login');	
-		Route::post('worker_update','ApiController@worker_update');
-		Route::post('user_update','ApiController@user_update');	
-		Route::post('user_retrieve','ApiController@user_retrive');
-		Route::post('worker_retrieve','ApiController@worker_retrive');
-		Route::post('password_reset','ApiController@password_reset');
-		Route::post('search','ApiController@search');
-		Route::post('rate','ApiController@rate');
-		Route::post('profileUp','ApiController@profileUp');	
-		Route::post('category','ApiController@category');
+    	Route::any('worker_reg','ApiController@worker_reg');	//post
+		Route::any('login','ApiController@login');	// post
+		Route::any('worker_update','ApiController@worker_update'); //put
+		Route::post('user_update','ApiController@user_update');	//put
+		Route::post('user_retrieve','ApiController@user_retrive'); //get
+		Route::post('worker_retrieve','ApiController@worker_retrive'); //get
+		Route::post('password_reset','ApiController@password_reset'); //put
+		Route::post('search','ApiController@search'); //get
+		Route::post('rate','ApiController@rate');	//post
+		Route::post('profileUp','ApiController@profileUp'); //post	
+		Route::post('category','ApiController@category'); //get
 
 
 

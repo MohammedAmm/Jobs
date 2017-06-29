@@ -284,7 +284,7 @@ class ApiController extends Controller
 
         //  }
 
-
+            // ?api_token=1QjNSZyGzouE3Anyv1kQY4PJY1cAnBJKGQVZut8v9jKL2gHj3UeAInvy79aZ&job=plumber&address=glaa&name=ali&email=aliatef@mail.com&phone=01111111111&wage=59
 
      try 
         {
@@ -293,8 +293,7 @@ class ApiController extends Controller
                 $job_id=DB::table('jobs')->where('name',$request->input('job'))->sharedlock()->value('id');    
                 $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
                  DB::beginTransaction();
-                 
-                 // {"job":"Carpenter" ,"name":"ahmed", "phone" : "01115693438" ,"address":"test","email":"ahmed@mail.com" }
+                    
 
 
                  DB::table('users')->where('api_token',$user->api_token)->lockForUpdate()->update([
@@ -314,9 +313,8 @@ class ApiController extends Controller
 
                     ]);
                 DB::commit() ;
-                // {"worker":{"name":"ahmed","email":"ahmed@mail.com","id":4,"job":"Plumber" ,"phone":"01115693438","address":"test"}}
 
-                return json_encode([
+                return response(json_encode([
                     'worker'=>[
                     'name'=>$request->input('name')
                     ,'email'=>$request->input('email')
@@ -324,7 +322,8 @@ class ApiController extends Controller
                     ,'job'=>$request->input('job')
                     ,'phone'=>$request->input('phone')
                     ,'address'=>$request->input('address')
-                    ]]) ; 
+                    ,'wage'=>$request->input('wage')
+                    ]]),200) ; 
             }
             else
             {
@@ -361,6 +360,7 @@ class ApiController extends Controller
 
 
 
+// ?api_token=Elwo2nH1xIj9oDC0ppOTOoI5QDxsxc8STmk9jQ3XsBslKGb8MediS2Aj7kRg&name=hamadaraya&email=hamadaraya@mail.com
 
         try 
         {
@@ -370,7 +370,6 @@ class ApiController extends Controller
                  
 
 
-//{"name":"ahmed","email":"ahmed@mail.com"}
 
 
                  DB::table('users')->where('api_token',$user->api_token)->lockForUpdate()->update([
@@ -382,14 +381,13 @@ class ApiController extends Controller
 
 
                 DB::commit() ;
-//{"user":{"name":"ahmed","email":"ahmed@mail.com","id":"4"}}
 
-                return json_encode([
+                return response(json_encode([
                     'user'=>[
                     'name'=>$request->input('name')
                     ,'email'=>$request->input('email')
                     ,'id'=>$user->id
-                     ]]) ; 
+                     ]]),200) ; 
             }
             else
             {
