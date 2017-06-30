@@ -26,19 +26,19 @@ class ApiController extends Controller
             
             // 'name'=>'required|alpha_dash|max:255'
             // ,'email'=>'required|email|unique:users,email|max:255'
-            // ,'password'=>'required|max:255|min:6'
+            // ,'password'=>'required|max:255|min:6|confirmed'
             // ]);
 
             // if ($validation->fails()) 
 
             // {
                 
-            //     return response($validation->errors(),444);
+            //     return response($validation->errors(),400);
 
             // }
 
 
-
+     // ?name=ali&email=ali&password=12
         
         try {
             
@@ -62,14 +62,14 @@ class ApiController extends Controller
 
 
                  
-                 return response(json_encode([
+                 return response([
                     'user'=>[
                     'name'=>$request->input('name')
                     ,'api_token'=>'Bearer '.$token
                     ,'id'=>$id
 
 
-                    ]]),200) ;
+                    ]],200) ;
         
 
     
@@ -77,7 +77,7 @@ class ApiController extends Controller
 
          catch (Exception $ex) {
             
-            return response('error occured',503) ;            
+            return response(['message'=>'server fault'],500) ;            
         }
 
 
@@ -105,7 +105,7 @@ class ApiController extends Controller
         // }
 
 
-
+        // ?name=aliatef&email=aliatef@mail.com&password=password&password_confirmatoin=password&job=plumber&address=glaa&phone=01111111111&wage=99
 
             try 
             {
@@ -156,13 +156,13 @@ class ApiController extends Controller
          
 
 
-                 return json_encode([
+                 return response([
                     'worker'=>[
                     'name'=>$request->input('name')
                     ,'api_token'=>'Bearer '.$token
                     ,'id'=>$id
 
-                    ]]);
+                    ]],200);
 
 
             } 
@@ -207,7 +207,7 @@ class ApiController extends Controller
                         $worker=DB::table('workers')->where('user_id',$user->id)->sharedlock()->first();
                         $job=DB::table('jobs')->where('id',$worker->job_id)->sharedlock()->value('name');
                         $address=DB::table('addresses')->where('id',$worker->address_id)->sharedlock()->value('name');
-                        $result=json_encode([
+                        $result=[
                             'role_id'=>1
                             ,'api_token'=>'Bearer '.$user->api_token
                             ,'name'=>$user->name
@@ -217,19 +217,19 @@ class ApiController extends Controller
                             ,'address'=>$address
                             ,'wage'=>$worker->wage
                             ,'id'=>$user->id
-                            ]);
+                            ];
 
                             return  response($result,200);
                     }
                     else
                     {
-                        $result=json_encode([
+                        $result=[
                             'role_id'=>2
                             ,'api_token'=>'Bearer '.$user->api_token
                             ,'name'=>$user->name
                             ,'id'=>$user->id
 
-                            ]);
+                            ];
 
                         return response($result,200) ;
                             
@@ -477,8 +477,8 @@ class ApiController extends Controller
             
             // $validation=Validator::make($request,[
 
-            //     'old_pass'=>'required|min:6|max:255'
-            //     ,'new_pass'=>'required|min:6|max:255'
+            //     'old_password'=>'required|min:6|max:255'
+            //     ,'password'=>'required|confirmed|min:6|max:255'
             //     ]);
 
 
@@ -493,11 +493,15 @@ class ApiController extends Controller
             {
               if($user=Auth::guard('api')->user())
               {
-                if (Hash::check($request->input('old_pass'),$user->password))
+                if (Hash::check($request->input('old_password'),$user->password))
                     
                  {
-                    DB::table('users')->where('id',$user->id)->lockForUpdate()->update(['password'=>bcrypt($request->input('new_pass'))]);     
-                    return 'password updated successfully'; 
+                    DB::table('users')->where('id',$user->id)->lockForUpdate()->update(['password'=>bcrypt($request->input('password')),
+
+                        'updated_at'=>Carbon::now()
+
+                        ]);     
+                    return response('password updated successfully',200); 
                  }
                 else
                 {
@@ -686,8 +690,32 @@ class ApiController extends Controller
 
 
 public function category(Request $request)
-        {       
-            // $job_id=DB::table('jobs')->where([['name',$request->input('job_name')]])->sharedlock()->value('id');
+        {  
+
+
+
+            //?api_token=Elwo2nH1xIj9oDC0ppOTOoI5QDxsxc8STmk9jQ3XsBslKGb8MediS2Aj7kRg&job=plumber
+                
+
+                // $validation=Validator::make($request->all(),[
+                //     'job'=>'required|exists:jobs,name'
+                //     ,'try'=>'required|integer'
+                //     ]);
+                // if ($validation->fails()) 
+                // {
+                //     return response($validation->errors(),400);
+                // }
+
+
+
+
+
+            try 
+            {
+                if (Auth::guard('api')->check()) 
+
+                {
+                      $job_id=DB::table('jobs')->where([['name',$request->input('job')]])->sharedlock()->value('id');
             // $result=DB::table('workers')->where([['job_id',$job_id]])->sharedlock()->get();
             
             // $json_result=$result->toJson(JSON_FORCE_OBJECT);
@@ -695,11 +723,69 @@ public function category(Request $request)
             // return response($json_result, 200, ["Content-Type" => "application/json"]);
             // return $job_id ;
             
-            // $result=DB::table('users')->select(['id','name','avatar','phone','wage','rate','address_id'])->join('workers','users.id','=','workers.user_id')->where([['job_id',$job_id]])->get();
+            $result=DB::table('users')->select(['id','name','avatar','phone','wage','rate','address_id'])->join('workers','users.id','=','workers.user_id')->where([['job_id',$job_id]])->get();
 
-            // return response($result,200); 
-            return response('ammar',200);
-        }            
+            return response($result,200);              
+                }
+                else 
+                {
+                    return response('not authenticated',404);
+                }
+
+            } 
+
+            catch (Exception $e) 
+
+            {   
+                return response('api error',500);
+                
+            }
+}            
+
+
+
+
+    public function delete()
+    {
+        try 
+        {
+         if ($user=Auth::guard('api')->user())
+        {
+            if ($user->role_id==1) 
+            {   
+                DB::beginTransaction();
+                DB::table('workers')->where([['user_id',$user->id]])->lockForUpdate()->delete();
+                DB::table('users')->where([['id',$user->id]])->lockForUpdate()->delete();
+                DB::commit();
+                                  
+            }
+            else
+            {
+                DB::beginTransaction();
+                DB::table('users')->where([['id',$user->id]])->lockForUpdate()->delete();
+                DB::commit();
+            }
+
+                return response('good bye',200);
+        }   
+        else 
+        {
+            return response('not authenticated',404);
+
+
+        }   
+        }
+         catch (Exception $e) 
+         {
+            DB::rollBack();
+          return  response('server error',500);
+
+         }
+    }
+
+
+
+
 
 
 
@@ -711,10 +797,9 @@ public function test()
         return response('that\'s right',200);               
 
     }
-    else {
-
-        return response('that\'s wrong',404);               
-
+    else 
+    {
+                             return response(['name'=>'rahman','email'=>'rahman@mail.com','password'=>'password','password_confirmatoin'=>'password'],500) ;            
 
 
     }

@@ -15,8 +15,8 @@ every route
 {
 	method / path / 
 
-	request parameters 
-	response parameters 
+	request  
+	response 
 
 };
 
