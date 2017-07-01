@@ -18,10 +18,12 @@ class HERFA extends Mailable
      */
     public $template ;
     public $subject ;
-    public function __construct($template,$subject)
+    public $token;
+    public function __construct($template,$subject,$token='')
     {
         $this->template=$template ;
         $this->subject=$subject;
+        $this->token=$token;
     }
 
     /**

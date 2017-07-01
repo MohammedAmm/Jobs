@@ -12,16 +12,16 @@ Content-Length: 46
 
 
 
-
+	
 (not authenticated)
 
-GET /api/test HTTP/1.1
+POST /api/worker_reg HTTP/1.1
 Host: 127.0.0.1:8000
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length:59
+Content-Length:134
 
-{"name":"ali","email":"ali@mail.com","password":"password"}
+{"name":"cssdiasf","email":"csisdfas@mail.com","password":"password","job":"plumber","address":"glaa","phone":"01111111111","wage":44}
 
 
 

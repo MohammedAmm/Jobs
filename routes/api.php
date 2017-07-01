@@ -11,16 +11,13 @@ use Illuminate\Http\Request;
 		Route::any('login','ApiController@login');	// post
 		Route::any('worker_update','ApiController@worker_update'); //put
 		Route::any('user_update','ApiController@user_update');	//put
-		Route::post('user_retrieve','ApiController@user_retrive'); //get
-		Route::post('worker_retrieve','ApiController@worker_retrive'); //get
 		Route::any('password_reset','ApiController@password_reset'); //put
-		Route::post('search','ApiController@search'); //get
-		Route::post('rate','ApiController@rate');	//post
-		Route::post('profileUp','ApiController@profileUp'); //post	
+		Route::get('search','ApiController@search'); //get
+		Route::any('rate','ApiController@rate');	//post
 		Route::any('category','ApiController@category'); //get
-		Route::any('delete','ApiController@delete');
-
-
+		Route::any('delete','ApiController@delete');//delete
+		Route::get('forget_first','ApiController@forget_first');//get
+		Route::any('forget_second','ApiController@forget_second');//post
 
 		
 // just for test
