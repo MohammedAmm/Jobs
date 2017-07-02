@@ -668,12 +668,12 @@ public function category(Request $request)
                 
 
                 $validation=Validator::make($request->all(),[
-                    'job'=>'required|exists:jobs,name'
+                  'job'=>'required|exists:jobs,name'
                     // ,'try'=>'required|integer'
                     ]);
                 if ($validation->fails()) 
                 {
-                    return response($validation->errors(),402);
+                    return response($validation->errors(),200);
                 }
 
 
@@ -696,15 +696,16 @@ public function category(Request $request)
     
             } catch (QueryException $e) 
             {
-                return response('server error',500);
+                return response(['message'=>'server error'],500);
                 
             }
                 
             return response($result,200);              
+
                 }
                 else 
                 {
-                    return response('not authenticated',404);
+                    return response(['message'=>'not authenticated'],404);
                 }
             
 
@@ -776,7 +777,10 @@ public function forget_first(Request $request)
     {
        return response($validation->errors(),400);
     }
+    else 
+    {
          $token=str_random(6);
+    
     try 
     {
         DB::beginTransaction();   
@@ -791,8 +795,12 @@ public function forget_first(Request $request)
     }
 
     Mail::to($request->input('email'))->send(new HERFA('emails.forgetPassword','HERFA',$token));
-    return response(['message'=>'email has been sent'],200);
+    return response(['message'=>'Token has been sent to your email '],200);
+ }
 }
+
+
+
 
 public function forget_second(Request $request)
 {
@@ -823,7 +831,7 @@ public function forget_second(Request $request)
             return response(['message'=>'server error'],500);
         }
 
-            return response(['message'=>'password reset ,now u can login'],200);    
+            return response(['message'=>'password has been reassigned ,now u can login'],200);    
     }
 
 
@@ -837,9 +845,8 @@ public function forget_second(Request $request)
 
 public function test(Request $request)
 {   
-
-           DB::table('workers')->where([['user_id',166]])->update(['rate'=>0]);
-
+    $result=DB::table('jobs')->get() ;
+return response($result,200);
 }
 
 
