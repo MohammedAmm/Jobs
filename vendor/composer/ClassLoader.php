@@ -55,7 +55,6 @@ class ClassLoader
     private $classMap = array();
     private $classMapAuthoritative = false;
     private $missingClasses = array();
-    
 
     public function getPrefixes()
     {

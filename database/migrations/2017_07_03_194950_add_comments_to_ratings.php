@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCityIdToAddressesTable extends Migration
+class AddCommentsToRatings extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class AddCityIdToAddressesTable extends Migration
      */
     public function up()
     {
-        Schema::table('addresses', function (Blueprint $table) {
+        Schema::table('ratings', function (Blueprint $table) {
             //
-            $table->integer('city_id')
-            ->unsigned()
-            ->after('id');
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->text('comment')->after('ratings');
         });
     }
 
@@ -29,9 +26,9 @@ class AddCityIdToAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::table('addresses', function (Blueprint $table) {
+        Schema::table('ratings', function (Blueprint $table) {
             //
-            $table->dropColumn('city_id');
+            $table->dropColumn('comment');
         });
     }
 }

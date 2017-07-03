@@ -68,7 +68,9 @@
             </form>
         </div>
         <!--Sign up form -->
-        <div class="tab-pane fade" id="signup">    
+        <div class="tab-pane fade" id="signup">   
+    
+             <div class="alert alert-info hidden" id="removeMessage">Confirmation email has been sent,please check your email!</div> 
         <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}" id="registerForm">
             {{ csrf_field() }}
 
@@ -117,7 +119,16 @@
                        
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group" id="register-age">
+                    <label for="age" class=" control-label">Age</label>
+
+                    <div class="">
+                        <input type="age" name="age" class="form-control" placeholder="age">
+                        <span class=
+                            "help-block"><strong id="register-errors-age"></strong></span>
+                    </div>
+                </div>
+                <div class="control-group" id="register-phone">
                     <label for="phone" class=" control-label">PhoneNumber</label>
 
                     <div class="">
@@ -126,7 +137,7 @@
                             "help-block"><strong id="register-errors-phone"></strong></span>
                     </div>
                 </div>
-                 <div class="control-group">
+                 <div class="control-group" id="register-wage">
                     <label for="wage" class=" control-label">Wage</label>
 
                     <div class="">
@@ -136,7 +147,7 @@
                     </div>
                 </div>
 
-                <div class="control-group">
+                <div class="control-group" >
                     <label for="address_id" class=" control-label">Address</label>
 
                     <div class="">
@@ -246,19 +257,22 @@
             $( '#register-errors-email' ).html( "" );
             $( '#register-errors-password' ).html( "" );
             $( '#register-errors-phone' ).html( "" );
+            $( '#register-errors-age' ).html( "" );            
             $( '#register-errors-wage' ).html( "" );
             $("#register-name").removeClass("has-error");
             $("#register-email").removeClass("has-error");
             $("#register-password").removeClass("has-error");
             $("#register-phone").removeClass("has-error");
+            $("#register-age").removeClass("has-error");            
             $("#register-wage").removeClass("has-error");
             $.ajax({
                 url:'/register',
                 type:'POST',
                 data:formData,
                 success:function(data){
-                    $('#registerModal').modal( 'hide' );
-                    location.reload(true);
+                    registerForm.addClass('hidden');
+                    $('#removeMessage').removeClass('hidden');
+                  //  location.reload(true);
                 },
                 error: function (data) {
                     console.log(data.responseText);
@@ -274,6 +288,10 @@
                     if(obj.password){
                         $("#register-password").addClass("has-error");
                         $( '#register-errors-password' ).html( obj.password );
+                    }
+                    if(obj.age){
+                        $("#register-age").addClass("has-error");
+                        $( '#register-errors-age' ).html( obj.age );
                     }
                     if(obj.phone){
                         $("#register-phone").addClass("has-error");

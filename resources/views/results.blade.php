@@ -1,26 +1,34 @@
 @extends('layouts.app')
-
+@section('styles')
+	{!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}			
+	{!!Html::style('website/css/search.css')!!}
+@endsection
+@section('scripts')
+	{!! Html::script('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')!!}
+	{!! Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')!!}	
+	{!! Html::script('website/js/bootstrap-rating-input.min.js')!!}
+@endsection
 @section('content')
-<div class="text-center searchsection" style="margin-top:100px;">
-				<h1>Results</h1> 
-				<div class="row">
-				@forelse($results as $object)
-			 		<a href="{{route('profile', $object->user->id)}}" class="btn btn-lg"><img src="{{Storage::url($object->user->worker->avatar)}}" style="width:60px; height:60px; float:left; border-radius:50%; margin-right:25px;">{{$object->user->name}}
-			 		<br>
-			 		<br>
-			 		<small>{{$object->user->worker->wage}}EGP/H</small>
-			 		</a>
-
-			 		@if($object->user->worker->averageRating()==null)
-			 		0
-					@endif
-					{{$object->user->worker->averageRating()}}
-			 		 by {{$object->user->worker->totalRatings()}}
-					@empty
-					<h2>There is no workers in ur area!..</h2>
-
-				@endforelse
-				
+<div class="container-fluid">
+  <div class="container-fluid cards">
+	@forelse($results as $object)
+		<div class="card">
+		<img src="{{Storage::url($object->user->worker->avatar)}}">
+		<h4 id="name">{{$object->user->name}}</h4>
+			<div class="stars">
+			<input type="number" name="your_awesome_parameter" value="{{(int)$object->user->worker->rate}}" data-inline data-readonly id="some_id" class="rating" /></div>
+			<span>({{$object->user->worker->no_rates}})</span>
+			<h4 id="job">{{$object->user->worker->job->name}}</h4>
+			<a href="{{route('profile', $object->user->id)}}" id="profilebutton">View Profile</a>
+			<h4 id="wage">{{$object->user->worker->wage}}EGP/HR</h4>
+			</div>
+		</div>
+	@empty
+		<h2>There is no workers in ur area!..</h2>
+	@endforelse
+	<div class="text-center">
+			{!! $results->appends(Request::only(['adr','nam']))->links(); !!}
+	</div>
 	</div>
 </div>
 @endsection

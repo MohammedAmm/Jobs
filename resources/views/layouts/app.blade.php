@@ -3,14 +3,16 @@
 <head>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {!!Html::style('website/css/bootstrap.min.css')!!}
-  {!!Html::style('website/css/main.css')!!}
   {!!Html::style('https://fonts.googleapis.com/css?family=Montserrat')!!}
   {!!Html::style('https://fonts.googleapis.com/css?family=Lato')!!}
+  @yield('styles')
+  
 
-  {!! Html::script('website/js/jquery.min.js')!!}
-  {!! Html::script('website/js/bootstrap.min.js')!!}
+    @yield('scripts')
+
   {!! Html::script('website/js/smoothscrolling.js')!!}
+
+  
 </head>
 <body id="home" data-spy="scroll" data-target=".navbar" data-offset="150">
   
@@ -28,15 +30,11 @@
       <div class="alert alert-success" style="margin-top:150px;">
           {{ Session::get('flash_message') }}
       </div>
-  @endif
-
-     @if (Session::has('m'))
-     <div class="alert alert-info" style="margin-top:100px;">{{ Session::get('m') }}</div>
-     @endif 
+  @endif 
     @yield('content')
 
     <!-- <footer -->
-    <footer class="container-fluid text-center">
+    <footer class="container-fluid text-center" style=" bottom:0; width:100%">
 	  <a href="#home" title="To Top">
 	    <span class="glyphicon glyphicon-chevron-up"></span>
 	  </a>

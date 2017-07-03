@@ -1,11 +1,17 @@
 @extends('layouts.app')
-
+@section('styles')
+		{!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}
+		{!!Html::style('website/css/main.css')!!}  
+@endsection
+@section('scripts')
+  {!! Html::script('website/js/jquery.min.js')!!}
+  {!! Html::script('website/js/bootstrap.min.js')!!}
+@endsection
 @section('content')
 <div class="jumbotron text-center searchsection">
 <h1>Company Name</h1>
 <br> 
-<form class="form-inline center-mob" action="/search" method="POST">
-		{{csrf_field()}}
+<form class="form-inline center-mob" action="/search" method="GET">
     <div class="input-group form-group-lg">
       <select class="form-control" id="sel1">
         <option value="" selected disabled>Your Governate</option>

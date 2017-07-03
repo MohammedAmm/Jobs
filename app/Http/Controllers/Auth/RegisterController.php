@@ -51,6 +51,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'role_id'=>'required|integer',
+            'age'=>'required|integer',
             'phone'=>'required|regex:/(01)[0-9]{9}/|unique:workers',
             'wage'=>'required|integer',
             'password' => 'required|min:6|confirmed',
@@ -73,7 +74,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         if($data['role_id']==1) {
-            $user=User::create([
+            $user=new User([
                 'api_token'=>str_random(60),
                 'name' => $data['name'],
                 'email' => $data['email'],
@@ -82,15 +83,19 @@ class RegisterController extends Controller
                 'verifyToken'=>str_random(10),
                 'password' => bcrypt($data['password']),
             ]);
-            $user_id=$user->id;
             $worker=new Worker();
-            $worker->user_id=$user_id;
             $worker->job_id=$data['job_id'];
+            $worker->age=$data['age'];
             $worker->phone=(string)$data['phone'];
             $worker->avatar='public/avatars/default.png';
+            $worker->rate=0;
+            $worker->no_rates=0;
             $worker->wage=$data['wage'];
             $worker->address_id=$data['address_id'];
-            $worker->save();
+            DB::transaction(function() use ($user, $worker) {
+                $user->save();
+                User::findOrFail($user->id)->worker()->save($worker);
+            });
             return $user;
         }
         if($data['role_id']==2)
@@ -123,7 +128,6 @@ class RegisterController extends Controller
                 $message->subject('Registeration Confirmation');
 
             });
-            return redirect()->back()->with('m','Confirmation email has been send,please check your email.');
         }
 
      }

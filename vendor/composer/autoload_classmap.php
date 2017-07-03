@@ -7,11 +7,15 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddAdminProperty' => $baseDir . '/database/migrations/2017_04_13_135959_add_admin_property.php',
+    'AddAge' => $baseDir . '/database/migrations/2017_07_03_234749_add_age.php',
     'AddApiTokenToUsers' => $baseDir . '/database/migrations/2017_03_12_203006_add_api_token_to_users.php',
     'AddCityIdToAddressesTable' => $baseDir . '/database/migrations/2017_06_20_070257_add_city_id_to_addresses_table.php',
+    'AddCommentsToRatings' => $baseDir . '/database/migrations/2017_07_03_194950_add_comments_to_ratings.php',
     'AddJobAddressToWorker' => $baseDir . '/database/migrations/2017_03_03_142506_add_job_address_to_worker.php',
+    'AddNoRates' => $baseDir . '/database/migrations/2017_07_03_193005_add_no_rates.php',
     'AddRateToWorker' => $baseDir . '/database/migrations/2017_06_14_012046_add_rate_to_worker.php',
     'AddRoleIdToUsers' => $baseDir . '/database/migrations/2017_03_02_233737_add_role_id_to_users.php',
+    'AddTimestampsToRatings' => $baseDir . '/database/migrations/2017_07_03_195500_add_timestamps_to_ratings.php',
     'AddVerficationToUsers' => $baseDir . '/database/migrations/2017_06_15_180448_add_verfication_to_users.php',
     'AddWageAvatarToWorkerTable' => $baseDir . '/database/migrations/2017_06_12_141641_add_wage_avatar_to_worker_table.php',
     'CreateAddressesTable' => $baseDir . '/database/migrations/2017_03_03_140611_create_addresses_table.php',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRateToWorker extends Migration
+class AddAge extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,10 @@ class AddRateToWorker extends Migration
     {
         Schema::table('workers', function (Blueprint $table) {
             //
-            $table->integer('rate')->unsigned()->after('wage')->default(0);
-        });
+            $table->integer('age')->unsigned()
+            ->after('avatar');
+                    });
+                    
     }
 
     /**
@@ -27,8 +29,8 @@ class AddRateToWorker extends Migration
     public function down()
     {
         Schema::table('workers', function (Blueprint $table) {
-            
-            $table->dropColumn('rate');
+            //
+            $table->dropColumn('age');
         });
     }
 }

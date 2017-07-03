@@ -52,6 +52,9 @@ class RatingController extends Controller
                 $rating->worker_id = $id;
                 $rating->ratings = $rate;
                 $rating->save();
+                $worker->rate=$worker->averageRating();
+                $worker->no_rates=$worker->totalRatings();
+                $worker->save();
             }
         }
         return redirect()->back();

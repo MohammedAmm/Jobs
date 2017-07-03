@@ -15,8 +15,8 @@ class SearchController extends Controller
     	$address=Request::get('adr');
     	$results=Worker::where('job_id','=',$name)
     		->where('address_id','=',$address)
-    		->get();
-    	
+			->orderBy('rate','desc')
+			->paginate(5);    	
     	return view('results')->withResults($results);
     }
 }

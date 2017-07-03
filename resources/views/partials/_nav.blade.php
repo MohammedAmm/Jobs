@@ -15,7 +15,6 @@
         <li><a href="#services">SERVICES</a></li>
         <li><a href="#about">ABOUT</a></li>
         <li><a href="#app">APP</a></li>
-        <li><a href="#joinus">JOIN US</a></li>
         @if (Auth::guest())
              <li><button class="btn" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign In / Register</button></li>
         @else

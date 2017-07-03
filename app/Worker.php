@@ -9,7 +9,7 @@ class Worker extends Model
     //
     protected $primaryKey ='user_id';
     protected $fillable = [
-     'job_id','avatar','phone','address_id','wage'    ];
+     'job_id','avatar','age','phone','address_id','wage','rate','no_rates'];
     
      public function user()
     {
@@ -27,7 +27,11 @@ class Worker extends Model
         # code...
         return $this->belongsTo('App\Job');
     }
-
+    public function ratings()
+    {
+        # code...
+        return $this->hasMany(Rating::class, 'worker_id', 'user_id');
+    }
     public function averageRating() {
         return $this->hasMany(Rating::class, 'worker_id', 'user_id')->avg('ratings');
     }
