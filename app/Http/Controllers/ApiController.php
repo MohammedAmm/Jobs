@@ -21,7 +21,7 @@ class ApiController extends Controller
     	
 
 
-     // ?name=ali&email=ali@gmail.com&password=12
+     // ?name=ali&email=ali@gmail.com&password=password&password_confirmation=password
         
 
            $validation=Validator::make($request->all(),[
@@ -35,7 +35,7 @@ class ApiController extends Controller
 
             {
                 
-                return response($validation->errors(),497);
+                return response($validation->errors(),400);
 
             }
 
@@ -76,7 +76,7 @@ class ApiController extends Controller
                  
                  return response( [
                    'user'=>[ 
-                    'name'=>'ali'
+                    'name'=>$request->input('name')
                    ,'api_token'=>'Bearer '.$token
                     ,'id'=>$id
 
@@ -116,12 +116,12 @@ class ApiController extends Controller
                 $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
                 if ($file=$request->file('image')) 
                 {
-                    $file_path=Storage::put('avatars',$file) ;
+                    $file_path=Storage::put('public/avatars',$file) ;
 
                 }
                 else 
                 {
-                    $file_path='/uploads/avatars/default.jpg';
+                    $file_path='public/avatars/default.jpg';
                 }
 
 
@@ -265,7 +265,26 @@ class ApiController extends Controller
         }
     }
 
-    
+    public function get(Request $request)
+    {
+        
+            try 
+            {
+                $addresses=DB::table('addresses')->join('cities','addresses.city_id','=','cities.id')->select('city','name')->get();
+                $jobs=DB::table('jobs')->select('name')->get();
+
+                       
+           } 
+         catch (QueryException $e)
+           {
+                return response(['message'=>'server error '],500) ;         
+            }
+
+                return response(['addresses'=>$addresses,'jobs'=>$jobs],200);     
+
+
+           
+    }
 
 
     public function worker_update(Request $request)
@@ -286,6 +305,8 @@ class ApiController extends Controller
             ,'email'=>['required','max:255',Rule::unique('users')->ignore($user->id)]
             ,'phone'=>'required|regex:/(01)[0-9]{9}/|'
             ,'wage'=>'required|integer'
+            ,'image'=>'file|image'
+
 
             ]);
 
@@ -296,6 +317,13 @@ class ApiController extends Controller
          }   
                 $job_id=DB::table('jobs')->where('name',$request->input('job'))->sharedlock()->value('id');    
                 $address_id=DB::table('addresses')->where('name',$request->input('address'))->sharedlock()->value('id');
+                
+                if ($file=$request->file('image')) 
+                {
+                    $file_path=Storage::put('public/avatars',$file) ;
+
+                }
+
             try {
                  DB::beginTransaction();
                     
@@ -313,6 +341,7 @@ class ApiController extends Controller
                     'job_id'=>$job_id
                     ,'phone'=>$request->input('phone')
                     ,'wage'=>$request->input('wage')
+                    ,'avatar'=>$file_path
                     ,'address_id'=>$address_id
                     ,'updated_at'=>Carbon::now()
 
@@ -337,6 +366,7 @@ class ApiController extends Controller
                     'name'=>$request->input('name')
                     ,'email'=>$request->input('email')
                     ,'id'=>$user->id
+                    ,'avatar'=>$file_path
                     ,'job'=>$request->input('job')
                     ,'phone'=>$request->input('phone')
                     ,'address'=>$request->input('address')
@@ -486,8 +516,9 @@ class ApiController extends Controller
                     $validation=Validator::make($request->all(),[
 
                     'job'=>'required|exists:jobs,name'
-                    ,'city'=>'required|exists:cities,city'
-                    ,'address'=>'required|exists:addresses,name'
+                    // ,'city'=>'exists:cities,city'
+                    // ,'address'=>'exists:addresses,name'
+                    ,'try'=>'required|integer'
                     ]);
                 if ($validation->fails())
                  {
@@ -496,7 +527,7 @@ class ApiController extends Controller
 
 
 
-                    //?api_token=S74BSkLOgV9cuqEGPmGAzmQZbbB3uc9Z5GgR2pg7n1eceCy7NKJJPerR3iLW&city=mansoura&job=plumber&address=glaa
+                    //?api_token=6lbRlu38juCxmBp2vwD0keCsfi3o9pfTdxfI4sk0R0Ys0rdfOSTufSbxBcOa&city=mansoura&job=plumber&address=glaa
 
                  
                if (Auth::guard('api')->check())
@@ -507,12 +538,25 @@ class ApiController extends Controller
                 
 
                 $job_id=DB::table('jobs')->where([['name',$request->input('job')]])->sharedlock()->value('id');
-                $city_id=DB::table('cities')->where([['city',$request->input('city')]])->value('id');
-                $address_id=DB::table('addresses')->where([['name',$request->input('address')],['city_id',$city_id]])->sharedlock()->value('id');
+                
+                if ($request->has('address'))
+                 {
+                 
+                $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->join('addresses','workers.address_id','=','addresses.id')->join('cities','addresses.city_id','=','cities.id')->where([['job_id',$job_id],['city',$request->input('city')],['addresses.name',$request->input('address')]])->select('users.id','users.name','workers.avatar','workers.phone','workers.wage','workers.rate','cities.city','addresses.name as address')->sharedlock()->skip((($request->input('try')-1)*5)->take(5)->get();
+                                }
+                elseif ($request->has('city') &! $request->has('address')) 
+                {
+                 $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->join('addresses','workers.address_id','=','addresses.id')->join('cities','addresses.city_id','=','cities.id')->where([['job_id',$job_id],[
+                    'city',$request->input('city')]])->select('users.id','users.name','workers.avatar','workers.phone','workers.wage','workers.rate','cities.city','addresses.name as address')->sharedlock()->skip((($request->input('try')-1)*5)->take(5)->get();
+
+                }
+                 else 
+                 {
+                 $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->join('addresses','workers.address_id','=','addresses.id')->join('cities','addresses.city_id','=','cities.id')->where([['job_id',$job_id]])->select('users.id','users.name','workers.avatar','workers.phone','workers.wage','workers.rate','cities.city','addresses.name as address')->sharedlock()->skip((($request->input('try')-1)*5)->take(10)->get();   
+                 }       
 
 
-
-                 $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->where([['job_id',$job_id],['address_id',$address_id]])->select(['id','name','avatar','phone','wage','rate'])->sharedlock()->skip(0)->take(10)->get();
+                 
                 } 
                 catch (QueryException $e) {
                 return response(['message'=>'server error'],500) ;      
@@ -615,49 +659,6 @@ class ApiController extends Controller
 
 
 
-            //     public function profileUp(Request $request)
-            //     {
-
-
-
-
-
-            //         try 
-            //         {
-            //             if ($user=Auth::guard('api')->user()) 
-            //             {
-                                 
-            //         if ($file=$request->file('image'))
-            //          {
-            //             if ($request->file('image')->isValid())
-            //             {
-                         
-            //              $file=Storage::put('avatars',$file) ;
-
-                         
-                         
-            //             return redirect('uploads/'.$file)  ;
-
-
-
-            //          }
-
-            //             }
-            //     }                      
-            //            else 
-            //            {
-            //             return 'not authenticated' ;
-            //            } 
-                               
-            //         } 
-            //         catch (QueryException $e) 
-            //         {
-            //             return 'error' ;    
-            //         }
-                
-            // }
-
-
 
 public function category(Request $request)
         {  
@@ -669,6 +670,8 @@ public function category(Request $request)
 
                 $validation=Validator::make($request->all(),[
                   'job'=>'required|exists:jobs,name'
+                  ,'city'=>'exists:cities,city'
+                  ,'address'=>'exists:addresses,name'
                     // ,'try'=>'required|integer'
                     ]);
                 if ($validation->fails()) 
@@ -684,15 +687,19 @@ public function category(Request $request)
 
                 {
                       $job_id=DB::table('jobs')->where([['name',$request->input('job')]])->sharedlock()->value('id');
-            // $result=DB::table('workers')->where([['job_id',$job_id]])->sharedlock()->get();
-            
-            // $json_result=$result->toJson(JSON_FORCE_OBJECT);
-
-            // return response($json_result, 200, ["Content-Type" => "application/json"]);
-            // return $job_id ;
+          
             try 
             {
+                if ($request->hasInput('address'))
+                 {
+                    
+           $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->where([['job_id',$job_id],['address_id',$address_id],'city_id',])->select(['id','name','avatar','phone','wage','rate'])->sharedlock()->skip(0)->take(10)->get();
+                }
+                elseif ($request->hasInput('city') && !$request->hasInput('address')) 
+                {
+                    
             $result=DB::table('users')->select(['id','name','avatar','phone','wage','rate','address_id'])->join('workers','users.id','=','workers.user_id')->where([['job_id',$job_id]])->get();
+                }
     
             } catch (QueryException $e) 
             {
@@ -845,8 +852,7 @@ public function forget_second(Request $request)
 
 public function test(Request $request)
 {   
-    $result=DB::table('jobs')->get() ;
-return response($result,200);
+    
 }
 
 

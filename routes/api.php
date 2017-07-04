@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 
 
-
+		Route::any('get','ApiController@get'); 										//get	
 
     	Route::any('user_reg','ApiController@user_reg');  							//post
 			
@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 		
 		Route::any('password_reset','ApiController@password_reset'); 				//put
 		
-		Route::get('search','ApiController@search'); 								//get
+		Route::any('search','ApiController@search'); 								//get
 		
 		Route::any('rate','ApiController@rate');									//post
 		
@@ -32,11 +32,12 @@ use Illuminate\Http\Request;
 		
 // just for test
 
-		Route::get('ts',function (Request $request)   
-		{
-return json_encode(DB::table('workers')->where([['job_id',$request->input('job_id')],['address_id',$request->input('address_id')]])->sharedlock()->skip($request->input('try')*10)->take(10)->get());
-		});
+		Route::get('up',function (Request $request)   
 
+		{
+
+			return view('up');
+		});
 
 		Route::any('test','ApiController@test');
 
