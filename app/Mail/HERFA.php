@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Successful_Registeration extends Mailable
+class HERFA extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,14 @@ class Successful_Registeration extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $template ;
+    public $subject ;
+    public $token;
+    public function __construct($template,$subject,$token='')
     {
-        //
+        $this->template=$template ;
+        $this->subject=$subject;
+        $this->token=$token;
     }
 
     /**
@@ -28,6 +33,6 @@ class Successful_Registeration extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.success');
+        return $this->view($this->template)->subject($this->subject);
     }
 }

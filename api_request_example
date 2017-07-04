@@ -1,8 +1,8 @@
 (authenticated)
 
-POST /api/password_reset HTTP/1.1
+POST /api/test HTTP/1.1
 Host: 127.0.0.1:8000
-Authorization: Bearer 0eHBkpDCU1G8WdHODs85PayelHEtTbAucHivTyvNGC8Vbo6KFF383GA0Kf3V
+Authorization:Bearer Elwo2nH1xIj9oDC0ppOTOoI5QDxsxc8STmk9jQ3XsBslKGb8MediS2Aj7kRg
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
 Content-Length: 46
@@ -12,23 +12,25 @@ Content-Length: 46
 
 
 
-
+	
 (not authenticated)
 
-GET /api/category HTTP/1.1
+POST /api/worker_reg HTTP/1.1
 Host: 127.0.0.1:8000
 Accept-Language: en-US,en;q=0.5
 Content-Type: application/json
-Content-Length:24
+Content-Length:134
 
-{"job_name":"carpenter"}
+{"name":"cssdiasf","email":"csisdfas@mail.com","password":"password","job":"plumber","address":"glaa","phone":"01111111111","wage":44}
+
+
 
 
 
 user_reg_request
 
 
-{"name":"ali","email":"ali@mail.com","role_id":"2","password":"password"}
+{"name":"ali","email":"ali@mail.com","password":"password"}
 
 
 

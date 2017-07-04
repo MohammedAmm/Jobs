@@ -89,7 +89,10 @@ class RegisterController extends Controller
             $worker->phone=(string)$data['phone'];
             $worker->avatar='public/avatars/default.png';
             $worker->rate=0;
+<<<<<<< HEAD
             $worker->no_rates=0;
+=======
+>>>>>>> master
             $worker->wage=$data['wage'];
             $worker->address_id=$data['address_id'];
             DB::transaction(function() use ($user, $worker) {
