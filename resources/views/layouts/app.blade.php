@@ -27,7 +27,7 @@
     @endif 
     <!-- Message -->
   @if(Session::has('flash_message'))
-      <div class="alert alert-success" style="margin-top:150px;">
+      <div class="alert alert-success" style="margin-top:100px;">
           {{ Session::get('flash_message') }}
       </div>
   @endif 

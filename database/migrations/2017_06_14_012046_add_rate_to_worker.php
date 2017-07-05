@@ -15,12 +15,9 @@ class AddRateToWorker extends Migration
     {
         Schema::table('workers', function (Blueprint $table) {
             //
-<<<<<<< HEAD
             $table->integer('rate')->unsigned()->after('wage')->default(0);
-=======
             $table->float('rate')->after('wage')->default(0);
->>>>>>> master
-        });
+            });
     }
 
     /**

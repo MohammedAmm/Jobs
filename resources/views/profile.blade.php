@@ -1,4 +1,12 @@
 @extends('layouts.app')
+@section('styles')
+    	{!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}
+		{!!Html::style('website/css/main.css')!!} 
+@endsection
+@section('scripts')
+  {!! Html::script('website/js/jquery.min.js')!!}
+  {!! Html::script('website/js/bootstrap.min.js')!!}
+@endsection
 @section('content')
 <div class="container" style="margin-top : 150px; margin-bottom: 320px;">
     @if($errors->any())
