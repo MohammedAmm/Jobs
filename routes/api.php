@@ -15,17 +15,19 @@ use Illuminate\Http\Request;
 		
 		Route::any('user_update','ApiController@user_update');						//put
 		
+		Route::any('profile_update','ApiController@profile_update');				//post
+
 		Route::any('password_reset','ApiController@password_reset'); 				//put
 		
 		Route::any('search','ApiController@search'); 								//get
 		
+		Route::any('getc','ApiController@getc');
+
 		Route::any('rate','ApiController@rate');									//post
-		
-		Route::any('category','ApiController@category'); 							//get
-		
+				
 		Route::any('delete','ApiController@delete');								//delete
 		
-		Route::post('forget_first','ApiController@forget_first');					//get
+		Route::any('forget_first','ApiController@forget_first');					//get
 		
 		Route::any('forget_second','ApiController@forget_second');					//post
 
@@ -40,7 +42,6 @@ use Illuminate\Http\Request;
 		});
 
 		Route::any('test','ApiController@test');
-
 
 
 
