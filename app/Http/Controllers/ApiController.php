@@ -925,5 +925,8 @@ public function test(Request $request)
 
 }
 
+<<<<<<< HEAD
+=======
 //1575118
 //80011012
+>>>>>>> a128f482a56e889667b89f993695ebdb7a3c2c29
