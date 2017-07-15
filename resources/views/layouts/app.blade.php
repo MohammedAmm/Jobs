@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  >
 <head>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,14 +14,14 @@
 
   
 </head>
-<body id="home" data-spy="scroll" data-target=".navbar" data-offset="150">
-  
+<body id="home" data-spy="scroll" data-target=".navbar" data-offset="150" >
+<div class="wrapper">
 <!--Container (navbar) -->
   @include('partials._nav')
-
 <!-- Modal -->
+  <div <div style="<?php if(\Config::get('app.locale')=='ar')echo 'direction:rtl;'?>"> >
   @include('partials._modal')
-                
+   </div>             
     @if (Session::has('message'))
      <div class="alert alert-danger" style="margin-top:150px;">{{ Session::get('message') }}</div>
     @endif 
@@ -34,12 +34,13 @@
     @yield('content')
 
     <!-- <footer -->
-    <footer class="container-fluid text-center" style=" bottom:0; width:100%">
+    <footer class="container-fluid text-center">
 	  <a href="#home" title="To Top">
 	    <span class="glyphicon glyphicon-chevron-up"></span>
 	  </a>
 	  <p>© 2017 All Rights Reserved Terms of Use and Privacy Policy</p> 
 	</footer>
+  
     <!-- Scripts -->
     <script>
     @if (!empty(Session::get('error_code')) && Session::get('error_code') == 5) {
@@ -59,5 +60,7 @@
             }
         });
     </script>
+    </div>
     </body>
+
 </html>

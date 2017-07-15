@@ -7,16 +7,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#home">Logo</a>
+      <a class="navbar-brand" href="{{url('/')}}"><img class="img-responsive logo" src="/logo.png"alt="Logo"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#home">HOME</a></li>
-        <li><a href="#services">SERVICES</a></li>
-        <li><a href="#about">ABOUT</a></li>
-        <li><a href="#app">APP</a></li>
+        <li><a href="#home">{{trans('main.home')}}</a></li>
+        <li><a href="#services">{{trans('main.services')}}</a></li>
+        <li><a href="#about">{{trans('main.about')}}</a></li>
+        <li><a href="#app">{{trans('main.app')}}</a></li>
+       
         @if (Auth::guest())
-             <li><button class="btn" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign In / Register</button></li>
+             <li><button class="btn" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">{{trans('auth.signin')}} / {{trans('auth.register')}}</button></li>
         @else
             @if(Auth::user()->role_id==1)
             <img src="{{Storage::url(Auth::user()->worker->avatar)}}" style="width:30px; height:30px; float:left; border-radius:50%; margin-top:13px;">
@@ -30,14 +31,14 @@
                 <ul class="dropdown-menu" role="menu">
                     <li>
                     @if(Auth::user()->role_id==1)
-                      <a href="{{url('/myprofile')}}">Profile</a>
+                      <a href="{{url('/myprofile')}}">{{trans('main.profile')}}</a>
                     @else
-                      <a href="{{url('/changepassword')}}">Change password</a>
+                      <a href="{{url('/changepassword')}}">{{trans('main.changepassword')}}</a>
                     @endif
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
-                            Logout
+                            {{trans('main.logout')}}
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -48,7 +49,7 @@
                 </ul>
             </li>
         @endif
-
+         <li><a href="{{url('locale')}}" >{{trans('main.version')}}</a></li>
       </ul>
     </div>
   </div>

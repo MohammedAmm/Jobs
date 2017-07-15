@@ -40,6 +40,7 @@ class CityController extends Controller
         //
         $cit=new City;
         $cit->city=$request->city;
+        $cit->city_ar=$request->city;
         $cit->save();
         return redirect('adminpanel/addresses');
     }
@@ -81,6 +82,7 @@ class CityController extends Controller
         //
         $cit=City::findOrFail($id);
         $cit->city=$request->city;
+        $cit->city_ar=$request->city;
         $cit->save();
         return redirect('adminpanel/cities');
     }

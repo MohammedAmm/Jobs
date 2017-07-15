@@ -6,7 +6,7 @@
 		<thead>
 			<tr>
 			<th>Cities</th>
-			<th></th>
+			<th>Name_ar</th>
 			<th></th>
 			</tr>
 		</thead>
@@ -17,6 +17,7 @@
 				<div class="row">
 				<div class="col-md-6">
 				<td>{{$cit->city}}</td>
+				<td>{{$cit->city_ar}}</td>
 				<td>
 					
 					<a href="{{route('cities.edit',$cit->id)}}" class="btn btn-warning pull-right">Edit</a>

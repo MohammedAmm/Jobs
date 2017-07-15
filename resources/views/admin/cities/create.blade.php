@@ -8,6 +8,9 @@
 		{!! Form::open(['route'=>'cities.store','method'=>'POST']) !!}
 			{!! Form::label('city', 'Name') !!}
 			{!! Form::text('city', null, ['class'=>'form-control']) !!}
+				<br>
+				{!! Form::label('city_ar', 'Name_ar') !!}
+				{!! Form::text('city_ar', null, ['class'=>'form-control']) !!}
 			<br>
 			{!! Form::submit('Add', ['class'=>'btn btn-success']) !!}
 		{!! Form::close() !!}

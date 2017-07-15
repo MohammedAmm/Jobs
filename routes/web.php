@@ -12,6 +12,7 @@
 */
 
 Auth::routes();
+Route::get('locale','HomeController@locale');
 Route::get('changepassword','ProfileController@change_page');
 Route::post('/password/change','ProfileController@change_password');
 Route::get('/users/confirmation/{verifyToken}','Auth\RegisterController@confirmation')

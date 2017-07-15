@@ -6,8 +6,8 @@
 		<thead>
 			<tr>
 			<th>addresses</th>
+			<th>name_ar</th>
 			<th>city</th>
-			<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -17,6 +17,7 @@
 				<div class="row">
 				<div class="col-md-6">
 				<td>{{$address->name}}</td>
+				<td>{{$address->name_ar}}</td>
 				<td>{{$address->city->city}}</td>
 				<td>
 					

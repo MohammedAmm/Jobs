@@ -40,7 +40,7 @@ class JobController extends Controller
         //
         $job=new Job;
         $job->name=$request->name;
-
+        $job->name=$request->name_ar;
         $job->save();
 
         return redirect('adminpanel/jobs');
@@ -84,7 +84,7 @@ class JobController extends Controller
         $job=Job::findOrFail($id);
 
         $job->name=$request->name;
-
+        $job->name_ar=$request->name_ar;
         $job->save();
 
         return redirect('adminpanel/jobs');

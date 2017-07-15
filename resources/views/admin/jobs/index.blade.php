@@ -6,7 +6,7 @@
 		<thead>
 			<tr>
 			<th>Jobs</th>
-			<th></th>
+			<th>Name_ar</th>
 			<th></th>
 			</tr>
 		</thead>
@@ -17,6 +17,7 @@
 				<div class="row">
 				<div class="col-md-6">
 				<td>{{$job->name}}</td>
+				<td>{{$job->name_ar}}</td>
 				<td>
 					
 					<a href="{{route('jobs.edit',$job->id)}}" class="btn btn-warning pull-right">Edit</a>

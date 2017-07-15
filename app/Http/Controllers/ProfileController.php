@@ -18,14 +18,25 @@ class ProfileController extends Controller
         $jbs=[];
         foreach ($jobs as $job) {
             # code...
-            $jbs[$job->id]=$job->name;
+            if(\App::getLocale()=='en'){
+                $jbs[$job->id]=$job->name;
+            }
+            else{
+                $jbs[$job->id]=$job->name_ar;
+            }
+           
         }
         $addresses=Address::all();    
         $ads=[];
         foreach ($addresses as $address) {
             # code...
-            $ads[$address->id]=$address->name;
+            if(\App::getLocale()=='en'){
+            $ads[$address->id]=$address->name;}
+            else{
+                 $ads[$address->id]=$address->name_ar;
+            }
         }
+
         return view('profile', array('user' => Auth::user()) )
             ->withWorker($worker)
             ->withAddresses($ads)

@@ -36,5 +36,17 @@ class HomeController extends Controller
         $addresses]);
     
      }
+     public function locale(Request $request)
+     {
+         # code...
+         if(\Config::get('app.locale')=='en'){
+             $request->session()->put('locale', 'ar');
+         }
+         else
+         {
+             $request->session()->put('locale', 'en');
+         }
+        return redirect()->back();
+     }
 }
 

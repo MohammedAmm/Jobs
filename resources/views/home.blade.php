@@ -6,30 +6,77 @@
 @section('scripts')
   {!! Html::script('website/js/jquery.min.js')!!}
   {!! Html::script('website/js/bootstrap.min.js')!!}
+	  {!! Html::script('website/js/smoothscrolling.js')!!}
 @endsection
 @section('content')
 <div class="jumbotron text-center searchsection">
 <h1>Company Name</h1>
 <br> 
 <form class="form-inline center-mob" action="/search" method="GET">
-    <div class="input-group form-group-lg">
-      <select class="form-control" id="sel1">
-        <option value="" selected disabled>Your Governate</option>
+    <div class="input-group form-group-lg" style="<?php if(\App::getLocale()=='ar') echo 'direction:rtl;'?>">
+      
+			@if(\App::getLocale()=='ar')
+			<select class="form-control" id="sel3" name="nam" required>
+				<option value="" selected disabled>{{trans('main.type')}}</option>
+			
+					
+					@foreach($jobs as $nam)
+							<option value="{{$nam->id}}">	@if(\Config::get('app.locale')=='ar')
+							{{$nam->name_ar}}
+						@else
+						{{$nam->name}}
+					@endif</option>
+					@endforeach
+
+			
+      </select>
+      <select class="form-control" id="sel2" name="adr" required>
+        <option value="" selected disabled>{{trans('auth.address')}}</option>
+      </select>
+					<select class="form-control" id="sel1" required>
+        <option value="" selected disabled>{{trans('main.governate')}}</option>
  				@foreach($cities as $cit)
-					<option value="{{$cit->id}}">{{$cit->city}}</option>
+					<option value="{{$cit->id}}">@if(\Config::get('app.locale')=='ar')
+							{{$cit->city_ar}}
+						@else
+						{{$cit->city}}
+					@endif</option>
 				@endforeach
+
       </select>
-      <select class="form-control" id="sel2" name="adr">
-        <option value="" selected disabled>Your Area</option>
-              </select>
-      <select class="form-control" id="sel3" name="nam">
-        <option value="" selected disabled>Type of Handyworker</option>
-        @foreach($jobs as $nam)
-						<option value="{{$nam->id}}">{{$nam->name}}</option>
+  
+			@else
+			<select class="form-control" id="sel1" required>
+        <option value="" selected disabled>{{trans('main.governate')}}</option>
+ 				@foreach($cities as $cit)
+					<option value="{{$cit->id}}">@if(\Config::get('app.locale')=='ar')
+							{{$cit->city_ar}}
+						@else
+						{{$cit->city}}
+					@endif</option>
 				@endforeach
+
       </select>
+			<select class="form-control" id="sel2" name="adr" required>
+        <option value="" selected disabled>{{trans('auth.address')}}</option>
+            </select>
+      <select class="form-control" id="sel3" name="nam" required>
+				<option value="" selected disabled>{{trans('main.type')}}</option>
+			
+					
+					@foreach($jobs as $nam)
+							<option value="{{$nam->id}}">	@if(\Config::get('app.locale')=='ar')
+							{{$nam->name_ar}}
+						@else
+						{{$nam->name}}
+					@endif</option>
+					@endforeach
+					</select>
+					@endif
       <div class="input-group-btn">
-        <button type="submit" class="btn btn-lg" id="srch">Search</button>
+        <button type="submit" class="btn btn-lg" id="srch" style="<?php if(\App::getLocale()=='ar') echo ' border-top-right-radius: 0;
+    border-bottom-right-radius: 0;border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;'?>">{{trans('main.search')}}</button>
       </div>
     </div>
  </form>
@@ -124,8 +171,7 @@
 	</div>
 	</div>
 </div>
-
-
+               
 <script>
        $('#sel1').on('change',function(){
 				 $.ajax({
@@ -142,7 +188,7 @@
 							 var address = addresses[i];
 							  $('<option/>',{
 							 value:address.id,
-							 text:address.name,
+							 text:{{(\Config::get('app.locale')=='en')?'address.name':'address.name_ar'}},
 							 id:'removeMe',
 						 }).appendTo('#sel2');				 
 						 }
