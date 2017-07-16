@@ -278,7 +278,7 @@
                 data:formData,
                 success:function(data){
                     registerForm.addClass('hidden');
-                    $('#signup').html('<div class="alert alert-info col-ssm-12" >Confirmation emil has been sent,Please Check Your Mail Address</div>');
+                    $('#signup').html('<div class="alert alert-info col-ssm-12" ><?php echo trans('main.message'); ?></div>');
                   //  location.reload(true);
                 },
                 error: function (data) {

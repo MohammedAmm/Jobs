@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('styles')
-	{!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}			
     	{!!Html::style('website/css/search.css')!!}
 @endsection
 @section('scripts')

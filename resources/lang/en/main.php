@@ -9,7 +9,7 @@ return [
     'search'=>'Search',
 	'type'=>'Type of Handyworker',
 	'governate'=>'Your Governate',
-	'message'=>'Confirmation email has been sent,please check your email!',
+	'message'=>'Confirmation email has been sent,Please Check Your email!',
 	'profile'=>'Profile',
 	'changepassword'=>'Change Password',
 	'oldpassword'=>'Old Password',
