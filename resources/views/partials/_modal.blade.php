@@ -67,8 +67,6 @@
         </div>
         <!--Sign up form -->
         <div class="tab-pane fade" id="signup">   
-    
-             <div class="alert alert-info hidden" id="removeMessage">{{trans('main.message')}}</div> 
         <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}" id="registerForm">
             {{ csrf_field() }}
 
@@ -280,7 +278,7 @@
                 data:formData,
                 success:function(data){
                     registerForm.addClass('hidden');
-                    $('#removeMessage').removeClass('hidden');
+                    $('#signup').html('<div class="alert alert-info col-ssm-12" >Confirmation emil has been sent,Please Check Your Mail Address</div>');
                   //  location.reload(true);
                 },
                 error: function (data) {

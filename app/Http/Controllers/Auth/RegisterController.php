@@ -126,7 +126,7 @@ class RegisterController extends Controller
             Mail::send('emails.confirmation',$data,function($message) use($data){
                 $message->to($data['email']);
                 $message->subject('Registeration Confirmation');
-
+            //return \Response::json(['message'=>'Confirmation emil has been sent,Please Check Your Mail Address']);
             });
         }
 

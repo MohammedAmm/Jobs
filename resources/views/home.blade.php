@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('styles')
-		{!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}
 		{!!Html::style('website/css/main.css')!!}  
 @endsection
 @section('scripts')
@@ -10,7 +9,7 @@
 @endsection
 @section('content')
 <div class="jumbotron text-center searchsection">
-<h1>Company Name</h1>
+<h1>{{trans('main.wmessage')}}</h2>
 <br> 
 <form class="form-inline center-mob" action="/search" method="GET">
     <div class="input-group form-group-lg" style="<?php if(\App::getLocale()=='ar') echo 'direction:rtl;'?>">
@@ -86,23 +85,23 @@
 </div>
 <!-- Container (Services Section) -->
 <div id="services" class="container-fluid text-center services">
-  <h2>SERVICES</h2>
+  <h2>{{strtoupper(trans('main.services'))}}</h2>
   <br>
   <div class="row">
     <div class="col-md-4">
       <img class="tools" src="website/img/tools/carpenter.png" alt="hammer">
-      <h4>Carpentry</h4>
-      <p>Compnay name helps install and build a variety of customized carpentry projects</p>
+      <h4>{{trans('main.carpentry')}}</h4>
+      <p>{{trans('main.m1')}}</p>
     </div>
     <div class="col-md-4">
       <img class="tools" src="website/img/tools/plumber.png" alt="spanner">
-      <h4>Plumbing</h4>
-      <p>Trusted and reliable, Compnay name offers plumbing services for your kitchen, bathroom and more</p>
+      <h4>{{trans('main.plumbing')}}</h4>
+      <p>{{trans('main.m2')}}</p>
     </div>
     <div class="col-md-4">
       <img class="tools" src="website/img/tools/electrician.png" alt="screwdriver">
-      <h4>Electrical</h4>
-      <p>Compnay name Connection provides electricians to handle all of your electrical repair and installation needs</p>
+      <h4>{{trans('main.electrical')}}</h4>
+      <p>{{trans('main.m3')}}</p>
     </div>
     </div>
   </div>
@@ -167,7 +166,7 @@
 	</div>
 	</div>
 	<div>
-	<img class="col-md-6 img-responsive" alt="" src="https://d3nevzfk7ii3be.cloudfront.net/igi/MqGZWCWTTRYMR5a5.large">
+	<img class="col-md-6 img-responsive" alt="" src="/mob.large">
 	</div>
 	</div>
 </div>

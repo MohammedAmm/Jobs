@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('styles')
-    	{!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}
 		{!!Html::style('website/css/main.css')!!} 
 @endsection
 @section('scripts')
@@ -8,7 +7,7 @@
   {!! Html::script('website/js/bootstrap.min.js')!!}
 @endsection
 @section('content')
-<div class="container" style="margin-top : 150px; margin-bottom: 320px;">
+<div class="container" style="margin-top : 100px; margin-bottom: 100px; margin-top:50px; magin-bottom:-50px;  <?php if(\App::getLocale()=='ar') echo 'text-align:right;'?>">
     @if($errors->any())
     <div class="alert alert-danger">
         @foreach($errors->all() as $error)
@@ -19,7 +18,7 @@
 
     <div class="row" style="<?php if(\App::getLocale()=='ar') echo 'direction:rtl;' ?>">
         <div class="col-md-10 col-md-offset-1">
-            <img src="{{Storage::url(Auth::user()->worker->avatar)}}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px; <?php if(\App::getLocale()=='ar') echo 'float:right; margin-right:-25px; margin-left:25px; margin-bottom:25px;' ?>">
+            <img src="{{Storage::url(Auth::user()->worker->avatar)}}" style="margin-top:10px;width:150px; height:150px; float:left; border-radius:50%; margin-right:25px; <?php if(\App::getLocale()=='ar') echo 'float:right; margin-right:-25px; margin-left:25px; margin-bottom:25px;' ?>">
             <h2>{{ $user->name }}{{trans('main.myprofile')}}</h2>
             <a href="{{url('changepassword')}}">{{trans('main.changepassword')}}</a>
         </div>

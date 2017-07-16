@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"  >
+<html lang="<?php if(\App::getLocale()=='en') echo 'en'?><?php if(\App::getLocale()=='ar') echo 'ar'?>"  >
 <head>
  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {!!Html::style('https://fonts.googleapis.com/css?family=Montserrat')!!}
-  {!!Html::style('https://fonts.googleapis.com/css?family=Lato')!!}
+    {!!Html::style('website/css/bootstrap.min.css')!!}
+ 
   @yield('styles')
   
 
@@ -23,11 +23,11 @@
   @include('partials._modal')
    </div>             
     @if (Session::has('message'))
-     <div class="alert alert-danger" style="margin-top:150px;">{{ Session::get('message') }}</div>
+     <div class="alert alert-danger" style="margin-top:50px; magin-bottom:-50px;  <?php if(\App::getLocale()=='ar') echo 'text-align:right;'?>">{{ Session::get('message') }}</div>
     @endif 
     <!-- Message -->
   @if(Session::has('flash_message'))
-      <div class="alert alert-success" style="margin-top:100px;">
+      <div class="alert alert-success " style="margin-top:50px; magin-bottom:-50px;  <?php if(\App::getLocale()=='ar') echo 'text-align:right;'?>">
           {{ Session::get('flash_message') }}
       </div>
   @endif 

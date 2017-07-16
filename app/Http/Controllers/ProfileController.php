@@ -85,7 +85,7 @@ class ProfileController extends Controller
        $worker->address_id=$address_id;
        $worker->wage=$wage;
      $worker->save();
-     $request->session()->flash('flash_message', 'Ur Info Successfully Updated');
+     $request->session()->flash('flash_message', trans('main.smessage'));
      return redirect()->back();
     }
     public function change_page(){

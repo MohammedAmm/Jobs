@@ -12,13 +12,27 @@ return [
 	'message'=>'Confirmation email has been sent,please check your email!',
 	'profile'=>'Profile',
 	'changepassword'=>'Change Password',
+	'oldpassword'=>'Old Password',
+	'newpassword'=>'New Password',
 	'logout'=>'Logout',
 	'myprofile'=>"'s Profile",
 	'profilepic'=>'Update Ur Photo',
 	'comment'=>'Reviews',
 	'rate'=>'Rating',
 	'addreview'=>'Review this user',
-	'money'=>'EGP/HR'
-	
-
+	'money'=>'EGP/HR',
+	'carpentry'=>'Carpentry',
+	'plumbing'=>'Plumbing',
+	'electrical'=>'Electrical',
+	'm1'=>'FixIt helps install and build a variety of customized carpentry projects',
+	'm2'=>'Trusted and reliable, FixIt offers plumbing services for your kitchen, bathroom and more',
+	'm3'=>'FixIt Connection provides electricians to handle all of your electrical repair and installation needs',
+	'says'=>'What our customers say',
+	'c1'=>'',
+	'c1'=>'',
+	'c1'=>'',
+	'searchresults'=>'Search Results:',
+	'view'=>'View Profile',
+	'smessage'=>'Your Info Successfully Updated',
+	'wmessage'=>'Find Local Handyman Services'
 ];

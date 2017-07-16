@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('styles')
-		{!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}
 		{!!Html::style('website/css/profile.css')!!}  
 @endsection
 @section('scripts')
@@ -63,7 +62,7 @@
 
   <div class="profile-right"style="<?php if(\Config::get('app.locale')=='ar')echo 'margin-right:-150px;'?>">
     <h4 style="color:#3a629a; font-size:30px; display:inline; font-family:Arial;">{{$worker->user->name}}</h4>
-    <img src="/location.jpg" alt="" style="display:inline; padding-left:50px; margin-top:-5px;">
+    <img src="/location.jpg" alt="" style="display:inline; padding-left:50px; margin-top:-5px; <?php if(\Config::get('app.locale')=='ar')echo 'margin-right:50px; margin-left:-50px;'?>">
     <h4 style="color:#a4a4a4; font-size:15px; display:inline; padding:5px;"> @if(\Config::get('app.locale')=='ar')
                             {{$worker->address->city->city_ar}}
                         @else
@@ -79,7 +78,7 @@
 			<input type="number" name="your_awesome_parameter" value="{{(int)$worker->rate}}" data-inline data-readonly id="some_id" class="rating" />
 			<span>({{$worker->no_rates}})</span>
 	
-	<h4 style="display:inline; margin-left:250px; color:#3a629a; font-size:30px; font-family:monospace; font-weight:600;">{{$worker->wage}} {{trans('main.money')}} </h4>
+	<h4 style="display:inline; margin-left:250px; color:#3a629a; font-size:30px; font-family:monospace; font-weight:600; <?php if(\Config::get('app.locale')=='ar')echo 'margin-right:225px'?>">{{$worker->wage}} {{trans('main.money')}} </h4>
     <hr style="height:1.5px;background-color:#a4a4a4;">
     <h4 style="font-size:30px;color:#1c4c8d; font-family:arial; margin-top:30px; margin-bottom:15px; display:inline; " >{{trans('main.comment')}}</h4>
     @if($canRate)	
@@ -92,7 +91,7 @@
 			<input type="number" name="your_awesome_parameter" value="{{(int)$rat->ratings}}" data-inline data-readonly id="some_id" class="rating" /><small style="font-size:12px;"> @if(\App::getLocale()=='en'){{$rat->created_at->diffForHumans()}}
       @else
       {{\Carbon\Carbon::setLocale('ar')}}
-        {{\Carbon\Carbon::parse($rat->created_at,'Africa/Cairo')->diffForHumans()}}
+        {{ltrim(Carbon\Carbon::parse($rat->created_at,'Africa/Cairo')->diffForHumans(),'%1')}}
       @endif
       
       </small>
