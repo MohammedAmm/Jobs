@@ -39,10 +39,12 @@ class RatingController extends Controller
     {
         //
         $this->validate($request, [
-            'rate'=> ['required', 'integer', 'between:1,5'],
+            'rate'=> 'required|integer|between:1,5',
+            'comment'=>'required',
             ]);
         $id = $request->id;
         $rate = $request->rate;
+        $comment=$request->comment;
         $worker = Worker::where('user_id', $id)->first();
         if ($worker) {
             $rating = Rating::where('user_id', Auth::user()->id)->where('worker_id', $id)->first();
@@ -51,6 +53,7 @@ class RatingController extends Controller
                 $rating->user_id = Auth::user()->id;
                 $rating->worker_id = $id;
                 $rating->ratings = $rate;
+                $rating->comment=$comment;
                 $rating->save();
                 $worker->rate=$worker->averageRating();
                 $worker->no_rates=$worker->totalRatings();

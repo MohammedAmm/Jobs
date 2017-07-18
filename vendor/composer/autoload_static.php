@@ -297,12 +297,16 @@ class ComposerStaticInit90ef9ab146f34517ee7554a38c81b0a7
     );
 
     public static $classMap = array (
+        'AddAddressesAr' => __DIR__ . '/../..' . '/database/migrations/2017_07_13_043804_add_addresses_ar.php',
         'AddAdminProperty' => __DIR__ . '/../..' . '/database/migrations/2017_04_13_135959_add_admin_property.php',
         'AddAge' => __DIR__ . '/../..' . '/database/migrations/2017_07_03_234749_add_age.php',
         'AddApiTokenToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_03_12_203006_add_api_token_to_users.php',
-        'AddCityIdToAddressesTable' => __DIR__ . '/../..' . '/database/migrations/2017_06_20_070257_add_city_id_to_addresses_table.php',
+        'AddCitiesAr' => __DIR__ . '/../..' . '/database/migrations/2017_07_13_034304_add_cities_Ar.php',
+        'AddCityIdToAddressesTable' => __DIR__ . '/../..' . '/database/2017_06_20_070257_add_city_id_to_addresses_table.php',
         'AddCommentsToRatings' => __DIR__ . '/../..' . '/database/migrations/2017_07_03_194950_add_comments_to_ratings.php',
         'AddJobAddressToWorker' => __DIR__ . '/../..' . '/database/migrations/2017_03_03_142506_add_job_address_to_worker.php',
+        'AddJobArToJobs' => __DIR__ . '/../..' . '/database/migrations/2017_07_13_031839_add_job_ar_to_jobs.php',
+        'AddNameArToRoles' => __DIR__ . '/../..' . '/database/migrations/2017_07_13_022207_add_name_ar_to_roles.php',
         'AddNoRates' => __DIR__ . '/../..' . '/database/migrations/2017_07_03_193005_add_no_rates.php',
         'AddRateToWorker' => __DIR__ . '/../..' . '/database/migrations/2017_06_14_012046_add_rate_to_worker.php',
         'AddRoleIdToUsers' => __DIR__ . '/../..' . '/database/migrations/2017_03_02_233737_add_role_id_to_users.php',

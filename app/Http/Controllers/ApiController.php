@@ -843,22 +843,16 @@ class ApiController extends Controller
                 if ($request->has('address'))
                  {
                  
-                $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->join('addresses','workers.address_id','=','addresses.id')->join('cities','addresses.city_id','=','cities.id')->where([['job_id',$job_id],['city',$request->input('city')],['addresses.name',$request->input('address')]])->select('users.id','users.name','workers.avatar','workers.phone','workers.wage','workers.age','workers.rate','workers.no_rates','cities.city','addresses.name as address')->orderBy('rate','desc')->sharedlock()->skip(($request->input('try')-1)*10)->take(10)->get();
-                 
-                                }
-                
+                $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->join('addresses','workers.address_id','=','addresses.id')->join('cities','addresses.city_id','=','cities.id')->where([['job_id',$job_id],['city',$request->input('city')],['addresses.name',$request->input('address')]])->select('users.id','users.name','workers.avatar','workers.phone','workers.wage','workers.age','workers.rate','workers.no_rates','cities.city','addresses.name as address')->orderBy('rate','desc')->sharedlock()->skip(($request->input('try')-1)*10)->take(10)->get();                }                
                 elseif ($request->has('city') &! $request->has('address')) 
                 {
                  $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->join('addresses','workers.address_id','=','addresses.id')->join('cities','addresses.city_id','=','cities.id')->where([['job_id',$job_id],[
                     'city',$request->input('city')]])->select('users.id','users.name','workers.avatar','workers.phone','workers.wage','workers.age','workers.rate','workers.no_rates','cities.city','addresses.name as address')->orderBy('rate','desc')->sharedlock()->skip(($request->input('try')-1)*10)->take(10)->get();
-
                 }
                  else 
                  {
-                 $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->join('addresses','workers.address_id','=','addresses.id')->join('cities','addresses.city_id','=','cities.id')->where([['job_id',$job_id]])->select('users.id','users.name','workers.avatar','workers.phone','workers.wage','workers.age','workers.rate','workers.no_rates','cities.city','addresses.name as address')->orderBy('rate','desc')->sharedlock()->skip(($request->input('try')-1)*10)->take(10)->get();   
+                 $result=DB::table('workers')->join('users','workers.user_id','=','users.id')->join('addresses','workers.address_id','=','addresses.id')->join('cities','addresses.city_id','=','cities.id')->where([['job_id',$job_id]])->select('users.id','users.name','workers.avatar','workers.phone','workers.wage','workers.age','workers.rate','workers.no_rates','cities.city','addresses.name as address')->orderBy('rate','desc')->sharedlock()->skip(($request->input('try')-1)*10)->take(10)->get();
                  }       
-
-
                  
                 } 
                 catch (QueryException $e) {

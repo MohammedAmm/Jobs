@@ -1,35 +1,81 @@
 @extends('layouts.app')
 @section('styles')
-		{!!Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')!!}
 		{!!Html::style('website/css/main.css')!!}  
 @endsection
 @section('scripts')
   {!! Html::script('website/js/jquery.min.js')!!}
   {!! Html::script('website/js/bootstrap.min.js')!!}
+	  {!! Html::script('website/js/smoothscrolling.js')!!}
 @endsection
 @section('content')
 <div class="jumbotron text-center searchsection">
-<h1>Company Name</h1>
+<h1>{{trans('main.wmessage')}}</h2>
 <br> 
 <form class="form-inline center-mob" action="/search" method="GET">
-    <div class="input-group form-group-lg">
-      <select class="form-control" id="sel1">
-        <option value="" selected disabled>Your Governate</option>
+    <div class="input-group form-group-lg" style="<?php if(\App::getLocale()=='ar') echo 'direction:rtl;'?>">
+      
+			@if(\App::getLocale()=='ar')
+			<select class="form-control" id="sel3" name="nam" required>
+				<option value="" selected disabled>{{trans('main.type')}}</option>
+			
+					
+					@foreach($jobs as $nam)
+							<option value="{{$nam->id}}">	@if(\Config::get('app.locale')=='ar')
+							{{$nam->name_ar}}
+						@else
+						{{$nam->name}}
+					@endif</option>
+					@endforeach
+
+			
+      </select>
+      <select class="form-control" id="sel2" name="adr" required>
+        <option value="" selected disabled>{{trans('auth.address')}}</option>
+      </select>
+					<select class="form-control" id="sel1" required>
+        <option value="" selected disabled>{{trans('main.governate')}}</option>
  				@foreach($cities as $cit)
-					<option value="{{$cit->id}}">{{$cit->city}}</option>
+					<option value="{{$cit->id}}">@if(\Config::get('app.locale')=='ar')
+							{{$cit->city_ar}}
+						@else
+						{{$cit->city}}
+					@endif</option>
 				@endforeach
+
       </select>
-      <select class="form-control" id="sel2" name="adr">
-        <option value="" selected disabled>Your Area</option>
-              </select>
-      <select class="form-control" id="sel3" name="nam">
-        <option value="" selected disabled>Type of Handyworker</option>
-        @foreach($jobs as $nam)
-						<option value="{{$nam->id}}">{{$nam->name}}</option>
+  
+			@else
+			<select class="form-control" id="sel1" required>
+        <option value="" selected disabled>{{trans('main.governate')}}</option>
+ 				@foreach($cities as $cit)
+					<option value="{{$cit->id}}">@if(\Config::get('app.locale')=='ar')
+							{{$cit->city_ar}}
+						@else
+						{{$cit->city}}
+					@endif</option>
 				@endforeach
+
       </select>
+			<select class="form-control" id="sel2" name="adr" required>
+        <option value="" selected disabled>{{trans('auth.address')}}</option>
+            </select>
+      <select class="form-control" id="sel3" name="nam" required>
+				<option value="" selected disabled>{{trans('main.type')}}</option>
+			
+					
+					@foreach($jobs as $nam)
+							<option value="{{$nam->id}}">	@if(\Config::get('app.locale')=='ar')
+							{{$nam->name_ar}}
+						@else
+						{{$nam->name}}
+					@endif</option>
+					@endforeach
+					</select>
+					@endif
       <div class="input-group-btn">
-        <button type="submit" class="btn btn-lg" id="srch">Search</button>
+        <button type="submit" class="btn btn-lg" id="srch" style="<?php if(\App::getLocale()=='ar') echo ' border-top-right-radius: 0;
+    border-bottom-right-radius: 0;border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;'?>">{{trans('main.search')}}</button>
       </div>
     </div>
  </form>
@@ -39,23 +85,23 @@
 </div>
 <!-- Container (Services Section) -->
 <div id="services" class="container-fluid text-center services">
-  <h2>SERVICES</h2>
+  <h2>{{strtoupper(trans('main.services'))}}</h2>
   <br>
   <div class="row">
     <div class="col-md-4">
       <img class="tools" src="website/img/tools/carpenter.png" alt="hammer">
-      <h4>Carpentry</h4>
-      <p>Compnay name helps install and build a variety of customized carpentry projects</p>
+      <h4>{{trans('main.carpentry')}}</h4>
+      <p>{{trans('main.m1')}}</p>
     </div>
     <div class="col-md-4">
       <img class="tools" src="website/img/tools/plumber.png" alt="spanner">
-      <h4>Plumbing</h4>
-      <p>Trusted and reliable, Compnay name offers plumbing services for your kitchen, bathroom and more</p>
+      <h4>{{trans('main.plumbing')}}</h4>
+      <p>{{trans('main.m2')}}</p>
     </div>
     <div class="col-md-4">
       <img class="tools" src="website/img/tools/electrician.png" alt="screwdriver">
-      <h4>Electrical</h4>
-      <p>Compnay name Connection provides electricians to handle all of your electrical repair and installation needs</p>
+      <h4>{{trans('main.electrical')}}</h4>
+      <p>{{trans('main.m3')}}</p>
     </div>
     </div>
   </div>
@@ -120,12 +166,11 @@
 	</div>
 	</div>
 	<div>
-	<img class="col-md-6 img-responsive" alt="" src="https://d3nevzfk7ii3be.cloudfront.net/igi/MqGZWCWTTRYMR5a5.large">
+	<img class="col-md-6 img-responsive" alt="" src="/mob.large">
 	</div>
 	</div>
 </div>
-
-
+               
 <script>
        $('#sel1').on('change',function(){
 				 $.ajax({
@@ -142,7 +187,7 @@
 							 var address = addresses[i];
 							  $('<option/>',{
 							 value:address.id,
-							 text:address.name,
+							 text:{{(\Config::get('app.locale')=='en')?'address.name':'address.name_ar'}},
 							 id:'removeMe',
 						 }).appendTo('#sel2');				 
 						 }

@@ -4,8 +4,8 @@
         <br>
         <div class="bs-example bs-example-tabs">
             <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#signin" data-toggle="tab">Sign In</a></li>
-              <li class=""><a href="#signup" data-toggle="tab">Register</a></li>
+              <li class="active"><a href="#signin" data-toggle="tab">{{trans('auth.signin')}}</a></li>
+              <li class=""><a href="#signup" data-toggle="tab">{{trans('auth.register')}}</a></li>
             </ul>
         </div>
       <div class="modal-body">
@@ -18,27 +18,25 @@
             <!-- Sign In Form -->
             <!-- Text input-->
             <div class="control-group">
-              <label class="control-label" for="email">E-mail:</label>
+              <label class="control-label" for="email">{{trans('auth.email')}}:</label>
               <div class="control-group" id="email-div">
-                <input required="" id="email" name="email" type="text" class="form-control" placeholder="E-mail" class="input-medium" value="{{ old('email') }}" required autofocus>
+                <input required="" id="email" name="email" type="text" class="form-control" placeholder="{{trans('auth.email')}}" class="input-medium" value="{{ old('email') }}" required autofocus>
                 {{-- <div id="form-errors-email" class="has-error"></div> --}}
                             <span class="help-block">
                                 <strong id="form-errors-email"></strong>
                             </span>
-                            <span class="help-block small">Your email</span>
               </div>
             </div>
 
             <!-- Password input-->
             <div class="control-group" id="password-div">
-              <label class="control-label" for="password">Password:</label>
+              <label class="control-label" for="password">{{trans('auth.password')}}:</label>
               <div class="controls">
                 <input required="" id="password" name="password" class="form-control" type="password" placeholder="********" class="input-medium" required>
               </div>
                <span class="help-block">
                                 <strong id="form-errors-password"></strong>
                             </span>
-                            <span class="help-block small">Your strong password</span>
             </div>
             <div class="control-group" id="login-errors">
                             <span class="help-block">
@@ -47,9 +45,9 @@
                         </div>
             <!-- Multiple Checkboxes (inline) -->
             <div class="control-group">
-              <div class="checkbox">
-                    <label style="margin-top: 5px;">
-                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+              <div class="span6">
+                    <label style="margin-top: 5px; ">
+                        <input type="checkbox" name="remember" style="margin-top: 5px;"{{ old('remember') ? 'checked' : '' }}> {{trans('auth.remember')}}
                     </label>
                 </div>
             </div>
@@ -57,11 +55,11 @@
             <!-- Button -->
             <div class="control-group">
               <button type="submit" class="btn btn-primary btn-sm">
-                                    Login
+                                    {{trans('auth.signin')}}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
+                                <a class="btn btn-link" href="{{ route('password.request') }}" >
+                                    {{trans('auth.forgot')}}
                                 </a>
             </div>
             </fieldset>
@@ -69,36 +67,36 @@
         </div>
         <!--Sign up form -->
         <div class="tab-pane fade" id="signup">   
-    
-             <div class="alert alert-info hidden" id="removeMessage">Confirmation email has been sent,please check your email!</div> 
         <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}" id="registerForm">
             {{ csrf_field() }}
 
             <div class="control-group" id="register-name">
-                <label for="name" class=" control-label">Name</label>
-
                 <div class="">
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus><span class=
+                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="{{trans('auth.name')}}" required autofocus><span class=
                             "help-block"><strong id="register-errors-name"></strong></span>
                 </div>
             </div>
 
             <div class="control-group" id="register-email">
-                <label for="email" class=" control-label">E-Mail Address</label>
-
                 <div class="">
-                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required><span class="help-block"><strong id="register-errors-email"></strong></span>
+                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="{{trans('auth.email')}}" required><span class="help-block"><strong id="register-errors-email"></strong></span>
                 </div>
             </div>
 
 
             <div class="control-group" >
-                <label for="role_id" class=" control-label">Role</label>
+                <label for="role_id" class=" control-label">{{trans('auth.role')}}</label>
 
                 <div class="">
                     <select name="role_id" class="form-control" id="my_role">
                         @foreach(\App\Role::all() as $role)
-                        <option value='{{$role->id}}'>{{$role->name}}</option>
+                        <option value='{{$role->id}}'>
+                        @if(\Config::get('app.locale')=='ar')
+                            {{$role->name_ar}}
+                        @else
+                            {{$role->name}}
+                        @endif                
+                        </option>
                         @endforeach
                     </select>
 
@@ -107,12 +105,16 @@
             </div>
             <div id="me_role">
                 <div class="control-group">
-                    <label for="job_id" class=" control-label">Job</label>
+                    <label for="job_id" class=" control-label">{{trans('auth.job')}}</label>
 
                     <div class="">
                         <select name="job_id" class="form-control">
                             @foreach(\App\Job::all() as $job)
-                                <option value='{{$job->id}}'>{{$job->name}}</option>
+                                <option value='{{$job->id}}'> @if(\Config::get('app.locale')=='ar')
+                            {{$job->name_ar}}
+                        @else
+                            {{$job->name}}
+                        @endif          </option>
                             @endforeach
                         </select>
 
@@ -120,47 +122,53 @@
                     </div>
                 </div>
                 <div class="control-group" id="register-age">
-                    <label for="age" class=" control-label">Age</label>
-
-                    <div class="">
-                        <input type="age" name="age" class="form-control" placeholder="age">
+                    <div class="" style="margin-top:10px;">
+                        <input type="age" name="age" class="form-control" placeholder="{{trans('auth.age')}}">
                         <span class=
                             "help-block"><strong id="register-errors-age"></strong></span>
                     </div>
                 </div>
                 <div class="control-group" id="register-phone">
-                    <label for="phone" class=" control-label">PhoneNumber</label>
-
-                    <div class="">
-                        <input type="phone" name="phone" class="form-control">
+                    <div class="" >
+                        <input type="phone" name="phone" class="form-control" placeholder="{{trans('auth.phonenumber')}}">
                         <span class=
                             "help-block"><strong id="register-errors-phone"></strong></span>
                     </div>
                 </div>
                  <div class="control-group" id="register-wage">
-                    <label for="wage" class=" control-label">Wage</label>
-
                     <div class="">
-                        <input type="wage" name="wage" class="form-control">
+                        <input type="wage" name="wage" class="form-control" placeholder="{{trans('auth.wage')}}">
                         <span class=
                             "help-block"><strong id="register-errors-wage"></strong></span>
                     </div>
                 </div>
 
                 <div class="control-group" >
-                    <label for="address_id" class=" control-label">Address</label>
+                    <label for="address_id" class=" control-label">{{trans('auth.address')}}</label>
 
                     <div class="">
                         <select name="address_id" class="form-control">
                              {{$make=0}}
                             @foreach(\App\Address::orderBy('city_id','asc')->get() as $address)
-                                <?php
-                               if(!($make==$address->city_id)){
-                                $make=$address->city_id;
-                                echo '<optgroup style="font-size:10px;" label='.$address->city->city.'></optgroup>';    
-                               }
-                               ?>
-                                <option value='{{$address->id}}'>{{$address->name}}</option>                               
+                                
+                               @if(!($make==$address->city_id))
+                                {{$make=$address->city_id}}
+                                {!! '<optgroup style="font-size:10px;" label='!!}
+                                @if(\Config::get('app.locale')=='en')
+                                  {{   $address->city->city}}
+                                @else
+                                    {{   $address->city->city_ar}}
+                                @endif
+                                {!!'></optgroup>'!!};    
+                               
+                               @endif
+                                <option value='{{$address->id}}'>
+                                @if(\Config::get('app.locale')=='en')
+                                    {{$address->name}}
+                                @else
+                                    {{$address->name_ar}}
+                                @endif                
+                            </option>                               
                             @endforeach                          
                         </select>        
                     </div>
@@ -168,20 +176,19 @@
             </div>
 
             <div class="control-group" id="register-password">
-                <label for="password" class=" control-label">Password</label>
+                <label for="password" class=" control-label">{{trans('auth.password')}}</label>
 
                 <div class="">
-                    <input id="password" type="password" class="form-control" name="password" required>
-                    <span class="help-block"><strong id="register-errors-password"></strong></span> <span class=
-                            "help-block small">Your strong password</span>
+                    <input id="password" type="password" class="form-control" name="password" placeholder="********" required>
+                    <span class="help-block"><strong id="register-errors-password"></strong></span>
                 </div>
             </div>
 
-            <div class="control-group">
-                <label for="password-confirm" class=" control-label">Confirm Password</label>
+            <div class="control-group" style="margin-top:-10px;">
+                <label for="password-confirm" class=" control-label">{{trans('auth.confirmpassword')}}</label>
 
                 <div class="">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="********" required>
                      <span class=
                             "help-block"><strong id="form-errors-password-confirm"></strong></span>
                 </div>
@@ -190,10 +197,10 @@
                             <span class="help-block"><strong id="form-login-errors"></strong></span>
                         </div>
             <br>
-            <div class="control-group">
+            <div class="control-group" style="margin-top:-15px;">
                 <div class=" col-md-offset-4">
                     <button type="submit" class="btn btn-primary">
-                        Register
+                        {{trans('auth.register')}}
                     </button>
                 </div>
             </div>
@@ -204,7 +211,7 @@
       </div>
       <div class="modal-footer">
       <center>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{trans('auth.close')}}</button>
         </center>
       </div>
     </div>
@@ -271,7 +278,7 @@
                 data:formData,
                 success:function(data){
                     registerForm.addClass('hidden');
-                    $('#removeMessage').removeClass('hidden');
+                    $('#signup').html('<div class="alert alert-info col-ssm-12" ><?php echo trans('main.message'); ?></div>');
                   //  location.reload(true);
                 },
                 error: function (data) {

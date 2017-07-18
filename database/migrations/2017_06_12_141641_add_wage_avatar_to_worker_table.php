@@ -18,7 +18,7 @@ class AddWageAvatarToWorkerTable extends Migration
              $table->integer('wage')->unsigned()->after('address_id');
              $table->string('avatar')
                 ->after('job_id')
-                ->default('public/avatars/default.jpg');
+                ->default('public/avatars/default.png');
         });
     }
 

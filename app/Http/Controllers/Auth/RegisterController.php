@@ -49,7 +49,7 @@ class RegisterController extends Controller
         if ($data['role_id']==1) {
         return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users|regex:/(.*)gmail\.com$/i',
             'role_id'=>'required|integer',
             'age'=>'required|integer',
             'phone'=>'required|regex:/(01)[0-9]{9}/|unique:workers',
@@ -60,7 +60,7 @@ class RegisterController extends Controller
        if ($data['role_id']==2) {
             return Validator::make($data, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users|regex:/(.*)gmail\.com$/i',
             'password' => 'required|min:6|confirmed',
         ]);
         }
@@ -126,7 +126,7 @@ class RegisterController extends Controller
             Mail::send('emails.confirmation',$data,function($message) use($data){
                 $message->to($data['email']);
                 $message->subject('Registeration Confirmation');
-
+            //return \Response::json(['message'=>'Confirmation emil has been sent,Please Check Your Mail Address']);
             });
         }
 

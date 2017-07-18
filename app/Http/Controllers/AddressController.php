@@ -49,7 +49,7 @@ class AddressController extends Controller
         $address=new Address;
         $address->city_id=$request->city_id;
         $address->name=$request->name;
-        
+        $address->name_ar=$request->name_ar;
         $address->save();
 
         return redirect('adminpanel/addresses');
@@ -101,7 +101,7 @@ class AddressController extends Controller
         $address=Address::findOrFail($id);
         $address->city_id=$request->city_id;
         $address->name=$request->name;
-
+         $address->name_ar=$request->name_ar;
         $address->save();
 
         return redirect('adminpanel/addresses');

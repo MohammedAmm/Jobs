@@ -84,7 +84,6 @@ body{ overflow-x:hidden;}
 }
 
 .searchsection>h1{
-	padding-top: 50px;
 	font-family: 'Lato', sans-serif;
     font-weight: 900;
     font-style: normal;

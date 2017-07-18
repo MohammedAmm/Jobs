@@ -5,12 +5,16 @@ body{
 	margin-top: -65px;
 	background: #e5ecfa;
 }
-
 .navbar{
 	background-color: #082867;
-	padding:20px;
+	padding:7px;
 	border:0;
 	margin:0;
+}
+.logo{
+	max-width: 250px;
+	margin-top: -15px;
+	max-height: 65px;
 }
 .navbar-default .navbar-brand {
     color: #fff;
@@ -72,8 +76,6 @@ footer{
 	font-size: 15px;
 	background-color: #082867;
 	height: 65px;
-	
-
 }
 footer>p{
 	margin: 0px;
@@ -82,6 +84,7 @@ footer>p{
 span.glyphicon {
 	font-size: 17px;
 	color:#FDCF00;
+
 }
 
 .wrapper {
@@ -93,25 +96,6 @@ span.glyphicon {
 
 /*profile page*/
 
-.rectangleL {
-  background-color: #cddcfb;
-  position: fixed;
-  bottom: 0px;
-  left: 0;
-  width: 12.5%;
-  height: 100%;
-  z-index: -2;
-}
-
-.rectangleR {
-  background-color: #cddcfb;
-  position: fixed;
-  bottom: 0px;
-  right: 0px;
-  width: 12.5%;
-  height: 100%;
-  z-index: -2;
-}
 
 h1{
 	margin-left:25%;
@@ -125,7 +109,7 @@ h1{
 }
 
 .cards{
-	margin-top:200px;
+	margin-top:150px;
 }
 .card{
 	margin: auto;
@@ -141,12 +125,18 @@ h1{
 }
 
 .card>img{
-	width:80px;
-	display: inline;
+	display: inline-block;
+	width:70px; height:70px; border-radius:50%;
+	
 }
 
+#noreviews{	
+		padding-top:-15px;
+		margin-left:-10px;
+	}
+
 #name{
-	display:inline;
+	display:inline-block;
 	font-size: 26px;
 	font-style:italic;
 	font-family: Arial;
@@ -154,15 +144,12 @@ h1{
 	margin-left: 2%;
 }
 
-#stars{
-	display: inline;
-	margin-left: 35%;
-
-}
 
 #job{
 	margin-left: 11.5%;
-	margin-top: -2%;
+	margin-top: -1%;
+	clear:left;
+	display: :inline-block;
 }
 
 #profilebutton{
@@ -178,39 +165,41 @@ h1{
     background-color: #42455d;
 	outline:0;
 	font-family: Arial;
-
 }
 
 #wage{
-	display: inline;
-	margin-left: 45%;
+	display: inline-block;
 	font-size: 28px;
 	font-weight: 600;
 	font-family: monospace , sans-serif; 
 	color: #082867;
+	float: right;
+	margin-top: 30px;
 }
 
-span{
+.stars{
+	width: 110px;
+	display:inline-block;
+	
+}
+.revstr{
+	display: inline-block;
+	float:right;
+	margin-top: 20px;
+}
+
+
+.stars>span{
 	color: rgb( 44, 90, 174 ); 
 	margin-left: 1%;
 	font-size: 20px;
+	color:#ecd132;
 }
-
 
 .pages{
 	margin:auto;
 	margin-bottom: 15px;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -351,32 +340,169 @@ span{
 }
 
 @media only screen and (max-width: 768px){
-.center-mob{
-    margin: 0 auto;
-    width:50%;   
-}
+
 .navbar-default .navbar-nav>li>button{
 	position: relative;
     display: block;
     margin:auto auto;
     margin-top: 10px;
 }
-.searchsection>h1{
-	font-size: 60px;
+
 }
-.col-md-4{
-	padding:0 !important;
+
+
+@media only screen and (max-width: 470px){
+	
+.logo{
+	max-width: 220px;
+    max-height: 45px;
+    margin-top: -11px;
 }
-.app{
-	width: 80%;
+
+h1{
+	margin-left: 10%;
+    margin-bottom: 6%;
+    font-weight: 900;
+    font-style: normal;
+    font-family: 'Lato', sans-serif;
+    color: #082867;
+    font-size: 17px;
+    letter-spacing: 1px;
 }
-.app h2{
-	font-size: 40px;
+.card{
+	margin: auto;
+    margin-bottom: 30px;
+    background-color: #fff;
+    width: 90%;
+    padding: 10px 7px;
+    border-radius: 5px;
+    height: 130px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -o-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#name {
+    font-size: 12px;
+    float: right;
+    margin-right: 5px;
+}
+
+.card>img {
+    max-width: 40px;
+    max-height:40px;
+    display: inline-block;
+    float: left;
+}
+#job {
+    margin-left: 2%;
+    font-size: 15px;
+    display: inline-block;
+    margin-top: 10px;
+    float:left;
+    clear:left;
+}
+
+.stars {
+	display:inline-block;
+    width: 80px;
+    margin-right: -10px;
+    margin-left: 1px;
+
+}
+
+.glyphicon-star,.glyphicon-star-empty {
+	font-size: 14px;
+}
+
+.revstr{
+	display: inline-block;
+	float: right;
+	margin-top: 5px;
+	clear: right;
+}
+
+#wage{
+	font-size: 16px;
+	margin-left: 2px;
+	display: inline-block;
+	float:right;
+	margin-top: 10px;
+}
+
+#profilebutton{
+	margin-left: 2px;
+    margin-top: 5px;
+    padding: 6px 6px;
+    display: inline-block;
+    font-size: 12px;
+    float:left;
+    clear:left;
+
+}
+
+footer>p{
+	font-size: 10px;
+}
+footer{
+	height: 56px;
 }
 }
 
-.stars{
-	margin-left: 40%;
-	display:inline;
-	
+@media only screen and (max-width: 1120px) and (min-width: 768px){
+	h1{
+		margin-left: 15%;
+	}
+	.card{
+		width: 70%;
+
+	}
+	.logo{
+		max-height: 50px;
+		margin-top: -7%;
+	}
+	#name{
+		font-size: 24px
+	}
+	#job{
+		margin-left: 15%;
+	}
+}
+
+@media only screen and (max-width: 768px) and (min-width: 470px){
+	#name{
+		font-size: 18px;
+	}
+	.card{
+		width: 90%;
+	}
+	.card>img{
+		max-width: 60px;
+	}
+	.glyphicon-star,.glyphicon-star-empty{
+		font-size: 16px;
+	}
+	.stars{
+		width: 100px;
+    	margin-right: -20px;
+	}
+	#noreviews{
+		font-size: 12px;
+	}
+	.logo{
+		max-height: 50px;
+	}
+	h1{
+		margin-left: 10%;
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+	#job{
+		font-size: 16px;
+		margin-left: 16%;
+	}
+	.card{
+		padding: 15px;
+	}
 }
